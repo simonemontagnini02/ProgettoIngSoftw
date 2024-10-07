@@ -1,5 +1,5 @@
-package main;
+package controllers;
 
-public class main {
+public class LoginController {
 
 }
