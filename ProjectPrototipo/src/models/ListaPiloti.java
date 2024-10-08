@@ -2,22 +2,16 @@ package models;
 
 import java.util.ArrayList;
 
-public class Formazione {
-	private int maxPiloti;
+public class ListaPiloti {
 	private ArrayList<Pilota> piloti;
 
-	public Formazione(int maxPiloti) {
+	public ListaPiloti() {
 		super();
-		this.maxPiloti=maxPiloti;
-		this.piloti=new ArrayList<Pilota>();
+		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean aggiungiPilota(Pilota pilota) {
-		if((this.piloti.size()+1) > this.maxPiloti) {
-			return false;
-		}
+	public void aggiungiPilota(Pilota pilota) {
 		this.piloti.add(pilota);
-		return true;
 	}
 	
 	public void eliminaPilota(Pilota pilota) {

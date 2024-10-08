@@ -3,82 +3,36 @@ package models;
 import java.util.*;
 
 public class Lega {
-	private String nome;
-	private boolean isPrivata = false;
-	private Regolamento regolamento;
-	private String codice;
+	protected String nome;
+	protected Regolamento regolamento;
 	
-	private Map<String, Partecipante> partecipanti; //<userName, Partecipante>
-	private int numPartecipanti, maxPartecipanti, maxCrediti, pilotiRosa, pilotiForm;
+	protected Capo capo;
+	protected Map<String, Partecipante> partecipanti; //<userName, Partecipante>
+	protected int numPartecipanti, maxPartecipanti, maxCrediti, pilotiRosa, pilotiForm;
 	
-	private String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	private int index;
+	//protected Calendario calendario;
+	//protected ListaPiloti piloti;
+	protected ArrayList<Risultato> risultati;
+	protected Map<String, Integer> classifica; //(nomeScuderia, punteggioTotale)
 	
-	public Lega(String nomeLega, boolean isPrivata) {
+	public Lega(String nomeLega) {
 		super();
 		if (nomeLega==null || nomeLega.equals("")) throw new IllegalArgumentException("nomeLega nulla o vuota");
 		this.nome = nomeLega;
-		this.isPrivata = isPrivata;
-		
-		this.codice = "";
-		if(isPrivata)
-		{
-			Random random = new Random();
-	        for(int i=0; i<8; i++)
-	        {
-	        	index = random.nextInt(chars.length());
-	        	this.codice += chars.charAt(index);
-	        }
-		}
 		
 		this.partecipanti=new HashMap<String, Partecipante>();
 		this.numPartecipanti = 0;
+		
+		this.risultati=new ArrayList<Risultato>();
+		this.classifica=new HashMap<String, Integer>();
 	}
 	
-	public boolean aggiungiPartecipante(Partecipante partecipante, String codice) {
-		if(this.partecipanti.get(partecipante.getUsername())!=null) //controllo che non sia già iscritto l'utente nella lega
-		{
-			return false;
-		}
-		if( (codice.equals(this.codice)) && ((this.numPartecipanti+1) <= this.maxPartecipanti) ) {
-			this.partecipanti.put(partecipante.getUsername(), partecipante);
-			this.numPartecipanti++;
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+	public void espelliPartecipante(String username) {
+		this.partecipanti.get(username).espelli();
 	}
 	
-	public boolean espelliPartecipante(String nomeScuderia) {
-		Partecipante p;
-		for(String username : this.partecipanti.keySet())
-		{
-			p = this.partecipanti.get(username);
-			if(nomeScuderia.equals(p.getNomeScuderia()))
-			{
-				p.espelli();
-				this.partecipanti.put(username, p);
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean riammettiPartecipante(String nomeScuderia) {
-		Partecipante p;
-		for(String username : this.partecipanti.keySet())
-		{
-			p = this.partecipanti.get(username);
-			if(nomeScuderia.equals(p.getNomeScuderia()))
-			{
-				p.riammetti();
-				this.partecipanti.put(username, p);
-				return true;
-			}
-		}
-		return false;
+	public void riammettiPartecipante(String username) {
+		this.partecipanti.get(username).riammetti();
 	}
 	
 	public Map<String, Rosa> visualizzaRose() {
@@ -89,10 +43,29 @@ public class Lega {
 		}
 		return rose;
 	}
+	
+	public void aggiungiRisultato(Risultato r) {
+		this.risultati.add(r);
+	}
+	
+	public ArrayList<Risultato> visualizzaRisultati() {
+		return this.risultati;
+	}
+	
+	//IMPLEMENTA
+	public Map<String, Integer> visualizzaClassifica() { 
+		return this.classifica;
+	}
 
 	public Map<String, Partecipante> getPartecipanti() {
 		return partecipanti;
 	}
+	
+	public Partecipante getPartecipante(String username) {
+		return this.partecipanti.get(username);
+	}
+	
+	//IMPLEMENTA aggiungiRisultato?
 	
 	
 	
@@ -102,27 +75,15 @@ public class Lega {
 		return nome;
 	}
 
-	public boolean isPrivata() {
-		return isPrivata;
-	}
-
 	public Regolamento getRegolamento() {
 		return regolamento;
-	}
-
-	public String getCodice() {
-		return codice;
 	}
 
 	public void setNome(String nomeLega) {
 		if (nomeLega==null || nomeLega.equals("")) throw new IllegalArgumentException("nomeLega nulla o vuota");
 		this.nome = nomeLega;
 	}
-
-	public void setIsPrivata(boolean isPrivata) {
-		this.isPrivata = isPrivata;
-	}
-
+	
 	public void setRegolamento(Regolamento regolamento) {
 		this.regolamento = regolamento;
 		
@@ -136,11 +97,15 @@ public class Lega {
 		this.pilotiForm = regola.get().getValore();
 	}
 	
-	public void setCodice(String codice) {
-		this.codice = codice;
+	public Capo getCapo() {
+		return capo;
 	}
-	
-	
+
+	public void setCapo(Capo capo) {
+		this.capo = capo;
+		this.partecipanti.put(capo.getUsername(), capo);
+	}
+
 	public int getNumPartecipanti() {
 		return numPartecipanti;
 	}
@@ -177,21 +142,23 @@ public class Lega {
 		this.pilotiForm = pilotiForm;
 	}
 
-	@Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+	public void setClassifica(Map<String, Integer> classifica) {
+		this.classifica = classifica;
+	}
 
-        Lega lega = (Lega) obj;
+	public ArrayList<Risultato> getRisultati() {
+		return risultati;
+	}
 
-        return nome.equals(lega.getNome()) &&
-               isPrivata == lega.isPrivata() &&
-               regolamento.equals(lega.getRegolamento()) &&
-               codice.equals(lega.getCodice());
-    }
+	public void setRisultati(ArrayList<Risultato> risultati) {
+		this.risultati = risultati;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(nome, isPrivata, regolamento, codice);
-    }
+	public void setPartecipanti(Map<String, Partecipante> partecipanti) {
+		this.partecipanti = partecipanti;
+	}
+
+	public void setNumPartecipanti(int numPartecipanti) {
+		this.numPartecipanti = numPartecipanti;
+	}
 }

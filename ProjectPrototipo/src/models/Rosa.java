@@ -19,4 +19,16 @@ public class Rosa {
 		this.piloti.add(pilota);
 		return true;
 	}
+	
+	public void eliminaPilota(Pilota pilota) {
+		this.piloti.remove(pilota);
+	}
+
+	public ArrayList<Pilota> getPiloti() {
+		return piloti;
+	}
+
+	public void setPiloti(ArrayList<Pilota> piloti) {
+		this.piloti = piloti;
+	}
 }

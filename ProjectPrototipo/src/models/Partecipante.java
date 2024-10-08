@@ -1,13 +1,13 @@
 package models;
 
 public class Partecipante {
-	private String username;
-	private String nomeScuderia;
-	private Lega lega;
-	private boolean attivo;
+	protected String username;
+	protected String nomeScuderia;
+	protected Lega lega;
+	protected boolean attivo;
 	
-	private Rosa rosa;
-	private Formazione formazione;
+	protected Rosa rosa;
+	protected Formazione formazione;
 	
 	public Partecipante(String username, Lega lega) {
 		this.username = username;

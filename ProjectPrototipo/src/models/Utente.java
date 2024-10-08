@@ -1,29 +1,29 @@
 package models;
 
+import controllers.UtenteController;
 import java.util.*;
 
-public class Utente
+public class Utente extends Account
 {
-	private String username, password;
 	private Map<String, Lega> leghe;
 	
 	public Utente(String username) {
-		super();
-		if (username==null || username.equals("")) throw new IllegalArgumentException("Username nulla o vuota");
-		this.username = username;
-		this.password = null;
+		super(username);
 		this.leghe = new HashMap<String, Lega>();
 	}
 	
 	public Lega creaLega(String nomeLega, String tipologia) {
-		boolean isPrivata = false;
+		Lega lega;
 		if (tipologia.equals("privata")) {
-			 isPrivata = true;
+			lega = new LegaPrivata(nomeLega);
 		}
-		Lega lega = new Lega(nomeLega, isPrivata);
+		else
+		{
+			lega = new LegaPubblica(nomeLega);
+		}
 		
 		Capo capo = new Capo(this.username, lega);
-		lega.aggiungiPartecipante(capo, lega.getCodice());
+		lega.setCapo(capo);
 		this.leghe.put(nomeLega, lega);
 		
 		return lega;
@@ -35,13 +35,13 @@ public class Utente
 	
 	public Optional<Partecipante> iscrizioneLegaPubblica(String nomeLega)
 	{
-		Optional<Lega> legaTrovata = UtenteController.cercaLega(nomeLega);
+		Optional<LegaPubblica> legaTrovata = UtenteController.cercaLegaPubblica(nomeLega);
 		
 		if(legaTrovata.isPresent()) 
 		{
-			Lega lega=legaTrovata.get();
+			LegaPubblica lega=legaTrovata.get();
 			Partecipante partecipante = new Partecipante(this.username, lega);
-			boolean ris = lega.aggiungiPartecipante(partecipante, "");
+			boolean ris = lega.aggiungiPartecipante(partecipante);
 			if(ris) {
 				this.leghe.put(nomeLega, lega);
 				return Optional.ofNullable(partecipante);
@@ -59,11 +59,11 @@ public class Utente
 	public Partecipante iscrizioneLegaPubblica(String nomeLega)
 	{
 		Partecipante partecipante;
-		Lega lega = UtenteController.cercaLega(nomeLega);
+		LegaPubblica lega = UtenteController.cercaLegaPubblica(nomeLega);
 		
 		if(lega!=null) {
 			partecipante = new Partecipante(this.username, lega);
-			boolean ris = lega.aggiungiPartecipante(partecipante, "");
+			boolean ris = lega.aggiungiPartecipante(partecipante);
 			if(ris) {
 				this.leghe.put(nomeLega, lega);
 				return partecipante;
@@ -78,11 +78,11 @@ public class Utente
 	
 	public Optional<Partecipante> iscrizioneLegaPrivata(String nomeLega, String codice)
 	{
-		Optional<Lega> legaTrovata = UtenteController.cercaLega(nomeLega);
+		Optional<LegaPrivata> legaTrovata = UtenteController.cercaLegaPrivata(nomeLega);
 		
 		if(legaTrovata.isPresent()) 
 		{
-			Lega lega=legaTrovata.get();
+			LegaPrivata lega=legaTrovata.get();
 			Partecipante partecipante = new Partecipante(this.username, lega);
 			boolean ris = lega.aggiungiPartecipante(partecipante, codice);
 			if(ris) {
@@ -96,26 +96,5 @@ public class Utente
 		else {
 			return Optional.empty();
 		}
-	}
-	
-	
-	// GETTERS SETTERS
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setUsername(String username) {
-		if (username==null || username.equals("")) throw new IllegalArgumentException("Username nulla o vuota");
-		this.username = username;
-	}
-
-	public void setPassword(String password) {
-		if (password==null || password.equals("")) throw new IllegalArgumentException("Password nulla o vuota");
-		if (password.length()<8) throw new IllegalArgumentException("Password deve essere almeno di 8 caratteri");
-		this.password = password;
 	}
 }
