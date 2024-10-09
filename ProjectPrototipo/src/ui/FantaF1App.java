@@ -24,7 +24,7 @@ public class FantaF1App extends Application {
 
         // Layout per posizionare il logo in alto a sinistra
         VBox logoBox = new VBox(logoImageView);
-        logoBox.setAlignment(Pos.TOP_RIGHT); // Allinea il logo in alto a sinistra
+        logoBox.setAlignment(Pos.TOP_LEFT); // Allinea il logo in alto a sinistra
         logoBox.setPrefWidth(1024);  // Larghezza della scena in base alla risoluzione dell'immagine di sfondo
         logoBox.setPrefHeight(1024); // Altezza della scena
 
@@ -33,24 +33,20 @@ public class FantaF1App extends Application {
         Button btnLogin = new Button("Login");
         Button btnUpdates = new Button("Aggiornamenti");
 
-        // Imposta una larghezza e un'altezza preferita per i pulsanti
-        btnRegister.setPrefWidth(300); // Aumenta la larghezza
-        btnRegister.setPrefHeight(50); // Aumenta l'altezza
-        btnLogin.setPrefWidth(300); // Aumenta la larghezza
-        btnLogin.setPrefHeight(50); // Aumenta l'altezza
-        btnUpdates.setPrefWidth(300); // Aumenta la larghezza
-        btnUpdates.setPrefHeight(50); // Aumenta l'altezza
+        // Imposta una larghezza e un'altezza preferita per i pulsanti (tutti uguali)
+        double buttonWidth = 300;
+        double buttonHeight = 50;
+        btnRegister.setPrefWidth(buttonWidth);
+        btnRegister.setPrefHeight(buttonHeight);
+        btnLogin.setPrefWidth(buttonWidth);
+        btnLogin.setPrefHeight(buttonHeight);
+        btnUpdates.setPrefWidth(buttonWidth);
+        btnUpdates.setPrefHeight(buttonHeight);
 
         // Imposta il testo in grassetto
         btnRegister.setStyle("-fx-font-weight: bold;");
         btnLogin.setStyle("-fx-font-weight: bold;");
         btnUpdates.setStyle("-fx-font-weight: bold;");
-
-        // Effetto hover per tutti i pulsanti
-        for (Button btn : new Button[]{btnRegister, btnLogin, btnUpdates}) {
-            btn.setOnMouseEntered(event -> btn.setScaleX(1.1)); // Aumenta la scala del pulsante su hover
-            btn.setOnMouseExited(event -> btn.setScaleX(1.0)); // Torna alla scala originale
-        }
 
         // Gestori degli eventi per ogni pulsante
         btnRegister.setOnAction(event -> {
