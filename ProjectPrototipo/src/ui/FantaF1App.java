@@ -66,7 +66,7 @@ public class FantaF1App extends Application {
         vbox.setAlignment(Pos.CENTER);
 
         // Aggiungere un'immagine di sfondo
-        Image backgroundImage = new Image(getClass().getResourceAsStream("/img/sfondo.jpg"));
+        Image backgroundImage = new Image(getClass().getResourceAsStream("/img/sfondo.jpeg"));
         ImageView backgroundImageView = new ImageView(backgroundImage);
         backgroundImageView.setPreserveRatio(true); // Mantieni il rapporto d'aspetto
         backgroundImageView.setFitWidth(1024);
