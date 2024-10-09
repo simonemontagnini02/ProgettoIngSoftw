@@ -25,7 +25,7 @@ public class FantaF1App extends Application {
         // Layout per posizionare il logo in alto a sinistra
         VBox logoBox = new VBox(logoImageView);
         logoBox.setTranslateX(50); // Sposta il pulsante 50 pixel a destra rispetto alla sua posizione originale
-        logoBox.setTranslateY(10); 
+        logoBox.setTranslateY(10);  
         logoBox.setPrefWidth(1024);  // Larghezza della scena in base alla risoluzione dell'immagine di sfondo
         logoBox.setPrefHeight(1024); // Altezza della scena
 
