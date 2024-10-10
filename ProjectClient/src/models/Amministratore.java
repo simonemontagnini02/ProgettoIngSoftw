@@ -31,7 +31,7 @@ public class Amministratore extends Account
 		ArrayList<Pilota> piloti = this.listaPiloti.getPiloti();
 		piloti.remove(pilota);
 		pilota.setPrezzo(nuovoPrezzo);
-		piloti.add(pilota);
+		piloti.add(pilota); 
 	}
 	
 	public void registraGP(GP gp) {
