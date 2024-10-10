@@ -97,7 +97,7 @@ public class ViewAggiornamenti {
         backgroundImageView.fitHeightProperty().bind(root.heightProperty());
 
         // Creazione della scena
-        Scene scene = new Scene(root, 1792, 1024); // Imposta la scena
+        Scene scene = new Scene(root, 1366, 768); // Imposta la scena
 
         // Imposta la scena al stage
         stage.setTitle("Aggiornamenti");

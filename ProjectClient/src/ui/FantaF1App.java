@@ -90,7 +90,7 @@ public class FantaF1App extends Application {
         backgroundImageView.fitHeightProperty().bind(root.heightProperty());
 
         // Creazione della scena
-        Scene scene = new Scene(root, 1792, 1024); // Imposta la scena iniziale
+        Scene scene = new Scene(root, 1366, 768); // Imposta la scena iniziale
         primaryStage.setTitle("FantaF1 - Benvenuto");
         primaryStage.setScene(scene);
         
