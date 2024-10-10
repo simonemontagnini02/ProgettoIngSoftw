@@ -56,7 +56,12 @@ public class FantaF1App extends Application {
         });
 
         btnLogin.setOnAction(event -> {
-            System.out.println("Vai al login");
+        	ViewLogin viewLogin = new ViewLogin();
+        	try {
+                viewLogin.showViewLogin(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         btnUpdates.setOnAction(event -> {
