@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 public class ViewAggiornamenti {
 
     public void showViewAggiornamenti(Stage stage) {
-        // Controlla se il stage è in modalità schermo intero
-        boolean isFullScreen = stage.isFullScreen();
 
         // Carica il logo
         Image logoImage = new Image(getClass().getResourceAsStream("/img/logo.png"));

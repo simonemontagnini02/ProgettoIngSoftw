@@ -9,6 +9,7 @@ public class Utente extends Account
 	
 	public Utente(String username) {
 		super(username);
+		this.tipo="Utente";
 		this.leghe = new HashMap<String, Lega>();
 	}
 	
