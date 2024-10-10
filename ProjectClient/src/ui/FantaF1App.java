@@ -62,7 +62,12 @@ public class FantaF1App extends Application {
         });
 
         btnUpdates.setOnAction(event -> {
-            System.out.println("Vai agli aggiornamenti");
+        	ViewAggiornamenti viewAggiornamenti = new ViewAggiornamenti();
+        	try {
+                viewAggiornamenti.showViewAggiornamenti(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         // Layout verticale (VBox) con i pulsanti centrati
@@ -94,6 +99,7 @@ public class FantaF1App extends Application {
         Scene scene = new Scene(root, 1280, 720); // Imposta la scena iniziale
         primaryStage.setTitle("FantaF1 - Benvenuto");
         primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
