@@ -14,7 +14,6 @@ public class SocketManager {
 
     private SocketManager() {
         try {
-            // Sostituisci con l'indirizzo e la porta del tuo server
             this.socket = new Socket("localhost", 8080);
             this.out = new PrintWriter(socket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
