@@ -99,4 +99,8 @@ public class Utente extends Account
 			return Optional.empty();
 		}
 	}
+	public List<String> getLeghe(){
+		List<String> keyList = new ArrayList<>(leghe.keySet());
+		return keyList;
+	}
 }

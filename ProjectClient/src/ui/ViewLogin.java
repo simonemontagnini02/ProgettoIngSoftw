@@ -78,7 +78,7 @@ public class ViewLogin {
         btnLogin.setOnAction(event -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
-            loginController.login(username, password);
+            loginController.login(username, password, stage);
         });
 
         // Layout verticale (VBox) con i campi di input e il pulsante di login

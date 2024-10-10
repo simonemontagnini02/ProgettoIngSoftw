@@ -3,14 +3,27 @@ package controllers;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
-import models.Database;
+import models.*;
 
 public class Server {
 	private static Database DB;
     public static void main(String[] args) {
         int port = 8080; // La porta su cui il server ascolta
         DB= new Database();
+        Amministratore simone=new Amministratore("simone");
+        simone.setPassword("simone");
+        Utente andriy=new Utente("andriy");
+        andriy.setPassword("andriy");
+        Utente damiano=new Utente("damiano");
+        damiano.setPassword("damiano");
+        List<Account> account= new ArrayList<>();
+        account.add(simone);
+        account.add(andriy);
+        account.add(damiano);
+        DB.setAccount(account);
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server in ascolto sulla porta " + port);
 
