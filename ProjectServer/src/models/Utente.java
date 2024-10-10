@@ -1,6 +1,8 @@
 package models;
 
 import controllers.UtenteController;
+
+import java.io.Serializable;
 import java.util.*;
 
 public class Utente extends Account
@@ -9,7 +11,6 @@ public class Utente extends Account
 	
 	public Utente(String username) {
 		super(username);
-		this.tipo="Utente";
 		this.leghe = new HashMap<String, Lega>();
 	}
 	

@@ -1,5 +1,6 @@
 package ui;
 
+import controllers.LoginController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,8 +19,16 @@ import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
 
 public class ViewLogin {
+	private LoginController loginController;
+	
+	
+    public ViewLogin(LoginController loginController) {
+		super();
+		this.loginController = loginController;
+	}
 
-    public void showViewLogin(Stage stage) {
+
+	public void showViewLogin(Stage stage) {
 
         // Carica il logo
         Image logoImage = new Image(getClass().getResourceAsStream("/img/logo.png"));
@@ -69,7 +78,7 @@ public class ViewLogin {
         btnLogin.setOnAction(event -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
-            System.out.println("Tentativo di login con username: " + username + " e password: " + password);
+            loginController.login(username, password);
         });
 
         // Layout verticale (VBox) con i campi di input e il pulsante di login

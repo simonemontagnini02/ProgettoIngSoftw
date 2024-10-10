@@ -1,5 +1,6 @@
 package ui;
 
+import controllers.LoginController;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -56,7 +57,8 @@ public class FantaF1App extends Application {
         });
 
         btnLogin.setOnAction(event -> {
-        	ViewLogin viewLogin = new ViewLogin();
+        	LoginController loginController = new LoginController();
+        	ViewLogin viewLogin = new ViewLogin(loginController);
         	try {
                 viewLogin.showViewLogin(primaryStage);
             } catch (Exception e) {

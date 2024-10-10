@@ -1,6 +1,8 @@
 package models;
 
 import controllers.UtenteController;
+
+import java.io.Serializable;
 import java.util.*;
 
 public class Utente extends Account
