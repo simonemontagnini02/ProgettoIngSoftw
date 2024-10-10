@@ -24,7 +24,7 @@ public class Database {
 
             // Imposta i valori per il PreparedStatement
             pstmt.setString(1, gp.getNome());
-            pstmt.setObject(2, gp.getData());
+            pstmt.setObject(2, gp.getData()); 
 
             // Esegui l'insert
             pstmt.executeUpdate();
