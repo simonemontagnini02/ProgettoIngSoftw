@@ -21,7 +21,13 @@ public class Capo extends Partecipante {
 		ArrayList<Pilota> pilotiFormazione;
 		int punti;
 		
-		GP lastGP = AmministratoreController.lastGP(); //ultimo gp caricato dall'amministratore
+		GP lastGP;
+		//lastGP = AmministratoreController.lastGP(); //ultimo gp caricato dall'amministratore
+		try {
+			lastGP = Database.getLastGP();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		ArrayList<Punteggio> punteggi = AmministratoreController.getPunteggi();
 		Map<String, Integer> classifica = this.lega.visualizzaClassifica();
 		

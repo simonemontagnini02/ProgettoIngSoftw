@@ -19,11 +19,14 @@ public class FantaF1App extends Application {
         // Carica il logo
         Image logoImage = new Image(getClass().getResourceAsStream("/img/logo.png"));
         ImageView logoImageView = new ImageView(logoImage);
-        logoImageView.setFitWidth(150); // Imposta la larghezza del logo a 150 pixel
+        logoImageView.setFitWidth(150);
+        logoImageView.setFitHeight(150);
         logoImageView.setPreserveRatio(true); // Mantieni il rapporto d'aspetto
+        logoImageView.setSmooth(true);
 
         // Layout per posizionare il logo in alto a sinistra
         VBox logoBox = new VBox(logoImageView);
+        logoBox.setAlignment(Pos.TOP_LEFT);
         logoBox.setTranslateX(50); // Sposta il pulsante 50 pixel a destra rispetto alla sua posizione originale
         logoBox.setTranslateY(10);  
         logoBox.setPrefWidth(1024);  // Larghezza della scena in base alla risoluzione dell'immagine di sfondo
@@ -72,6 +75,7 @@ public class FantaF1App extends Application {
         backgroundImageView.setPreserveRatio(true); // Mantieni il rapporto d'aspetto
         backgroundImageView.setFitWidth(1024);
         backgroundImageView.setFitHeight(1024);
+        backgroundImageView.setSmooth(true);
 
         // Usa StackPane per sovrapporre l'immagine di sfondo, il logo e il contenuto
         StackPane root = new StackPane();
@@ -80,10 +84,6 @@ public class FantaF1App extends Application {
         // Listener per ridimensionare l'immagine di sfondo e adattare la dimensione del testo dei pulsanti
         primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
             backgroundImageView.setFitWidth(newVal.doubleValue());
-            double fontSize = newVal.doubleValue() / 25; // Calcola la dimensione del font basato sulla larghezza
-            btnRegister.setFont(Font.font("Arial", FontWeight.BOLD, fontSize));
-            btnLogin.setFont(Font.font("Arial", FontWeight.BOLD, fontSize));
-            btnUpdates.setFont(Font.font("Arial", FontWeight.BOLD, fontSize));
         });
 
         primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -91,7 +91,7 @@ public class FantaF1App extends Application {
         });
 
         // Creazione della scena
-        Scene scene = new Scene(root, 400, 500); // Imposta la scena iniziale
+        Scene scene = new Scene(root, 1280, 720); // Imposta la scena iniziale
         primaryStage.setTitle("FantaF1 - Benvenuto");
         primaryStage.setScene(scene);
         primaryStage.show();
