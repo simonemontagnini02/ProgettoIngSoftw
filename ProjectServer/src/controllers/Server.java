@@ -4,10 +4,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import models.Database;
+
 public class Server {
+	private static Database DB;
     public static void main(String[] args) {
         int port = 8080; // La porta su cui il server ascolta
-
+        DB= new Database();
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server in ascolto sulla porta " + port);
 
@@ -17,7 +20,7 @@ public class Server {
                 System.out.println("Nuovo client connesso");
 
                 // Delegare la gestione del client a un nuovo thread ClientHandler
-                ClientHandler clientHandler = new ClientHandler(clientSocket);
+                ClientHandler clientHandler = new ClientHandler(clientSocket, DB);
                 clientHandler.start(); // Avvia il thread (invece di usare new Thread().start())
             }
         } catch (IOException e) {
@@ -31,9 +34,11 @@ class ClientHandler extends Thread {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    private Database DB;
 
-    public ClientHandler(Socket socket) {
+    public ClientHandler(Socket socket, Database DB) {
         this.clientSocket = socket;
+        this.DB= DB;
     }
 
     @Override

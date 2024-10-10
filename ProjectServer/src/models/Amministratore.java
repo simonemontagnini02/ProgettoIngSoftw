@@ -13,6 +13,7 @@ public class Amministratore extends Account
 
 	public Amministratore(String username) {
 		super(username);
+		this.tipo="Amministratore";
 		this.listaPiloti = AmministratoreController.getListaPiloti();
 		this.calendario = AmministratoreController.getCalendario();
 		this.punteggi = AmministratoreController.getPunteggi();
