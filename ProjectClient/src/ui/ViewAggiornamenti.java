@@ -47,7 +47,10 @@ public class ViewAggiornamenti {
         btnCheckUpdates.setStyle("-fx-font-weight: bold;");
         btnUpdate.setStyle("-fx-font-weight: bold;");
         btnBack.setStyle("-fx-font-weight: bold;");
-
+        
+        btnBack.setTranslateX(50);
+        btnBack.setTranslateY(10);
+        
         // Gestori degli eventi per i pulsanti
         btnCheckUpdates.setOnAction(event -> {
             System.out.println("Controllo degli aggiornamenti...");
@@ -84,28 +87,24 @@ public class ViewAggiornamenti {
         backgroundImageView.setPreserveRatio(true); // Mantieni il rapporto d'aspetto
         backgroundImageView.setFitWidth(1024);
         backgroundImageView.setFitHeight(1024);
+        backgroundImageView.setSmooth(true);
 
         // Usa StackPane per sovrapporre l'immagine di sfondo, il logo e i pulsanti
         StackPane root = new StackPane();
         root.getChildren().addAll(backgroundImageView, logoBox, vbox, backButtonBox); // Aggiungi l'immagine di sfondo, il logo, i pulsanti e il pulsante Indietro
-
-        // Listener per ridimensionare l'immagine di sfondo
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            backgroundImageView.setFitWidth(newVal.doubleValue());
-        });
-
-        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            backgroundImageView.setFitHeight(newVal.doubleValue());
-        });
+        
+        backgroundImageView.fitWidthProperty().bind(root.widthProperty());
+        backgroundImageView.fitHeightProperty().bind(root.heightProperty());
 
         // Creazione della scena
-        Scene scene = new Scene(root, 1280, 720); // Imposta la scena
+        Scene scene = new Scene(root, 1792, 1024); // Imposta la scena
 
         // Imposta la scena al stage
+        stage.setTitle("Aggiornamenti");
         stage.setScene(scene);
 
         // Ripristina lo stato di schermo intero se era attivo
-        stage.setFullScreen(isFullScreen);
+        
     }
 }
 

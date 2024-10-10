@@ -86,20 +86,14 @@ public class FantaF1App extends Application {
         StackPane root = new StackPane();
         root.getChildren().addAll(backgroundImageView, logoBox, vbox); // Aggiungi l'immagine di sfondo, il logo e il VBox dei pulsanti
 
-        // Listener per ridimensionare l'immagine di sfondo e adattare la dimensione del testo dei pulsanti
-        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            backgroundImageView.setFitWidth(newVal.doubleValue());
-        });
-
-        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            backgroundImageView.setFitHeight(newVal.doubleValue());
-        });
+        backgroundImageView.fitWidthProperty().bind(root.widthProperty());
+        backgroundImageView.fitHeightProperty().bind(root.heightProperty());
 
         // Creazione della scena
-        Scene scene = new Scene(root, 1280, 720); // Imposta la scena iniziale
+        Scene scene = new Scene(root, 1792, 1024); // Imposta la scena iniziale
         primaryStage.setTitle("FantaF1 - Benvenuto");
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+        
         primaryStage.show();
     }
 
