@@ -1,0 +1,21 @@
+.button {
+    -fx-background-color: rgb(255, 128, 64); /* Colore di sfondo verde */
+    -fx-text-fill: white; /* Colore del testo */
+    -fx-font-weight: bold;
+    -fx-font-size: 16px; /* Dimensione del font */
+    -fx-padding: 10px 20px; /* Padding interno */
+    -fx-background-radius: 5; /* Angoli arrotondati */
+    -fx-border-radius: 5; /* Angoli arrotondati del bordo */
+    -fx-border-color: rgb(255, 128, 64); /* Colore del bordo */
+    -fx-border-width: 1; /* Larghezza del bordo */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1); /* Ombra del pulsante */
+    -fx-cursor: hand; /* Cambia il cursore quando si passa sopra il pulsante */
+}
+
+.button:hover {
+    -fx-background-color: rgb(128, 64, 0); /* Colore di sfondo al passaggio del mouse */
+}
+
+.button:pressed {
+    -fx-background-color: rgb(64, 0, 0); /* Colore di sfondo quando il pulsante è premuto */
+}

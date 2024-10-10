@@ -94,6 +94,8 @@ public class FantaF1App extends Application {
 
         // Creazione della scena
         Scene scene = new Scene(root, 1366, 768); // Imposta la scena iniziale
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        
         primaryStage.setTitle("FantaF1 - Benvenuto");
         primaryStage.setScene(scene);
         

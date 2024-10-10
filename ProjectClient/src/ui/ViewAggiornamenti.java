@@ -38,7 +38,7 @@ public class ViewAggiornamenti {
         btnCheckUpdates.setPrefHeight(buttonHeight);
         btnUpdate.setPrefWidth(buttonWidth);
         btnUpdate.setPrefHeight(buttonHeight);
-        btnBack.setPrefWidth(100); // Imposta una larghezza minore per il pulsante Indietro
+        btnBack.setPrefWidth(110); // Imposta una larghezza minore per il pulsante Indietro
         btnBack.setPrefHeight(30);
 
         // Imposta il testo in grassetto
@@ -96,6 +96,7 @@ public class ViewAggiornamenti {
 
         // Creazione della scena
         Scene scene = new Scene(root, 1366, 768); // Imposta la scena
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         // Imposta la scena al stage
         stage.setTitle("Aggiornamenti");
