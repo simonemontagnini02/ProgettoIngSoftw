@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,14 +19,6 @@ public class ViewAggiornamenti {
         ImageView logoImageView = new ImageView(logoImage);
         logoImageView.setFitWidth(150); // Imposta la larghezza del logo a 150 pixel
         logoImageView.setPreserveRatio(true); // Mantieni il rapporto d'aspetto
-
-        // Layout per posizionare il logo in alto a destra
-        VBox logoBox = new VBox(logoImageView);
-        logoBox.setAlignment(Pos.TOP_RIGHT);
-        logoBox.setTranslateX(-50); // Sposta il logo
-        logoBox.setTranslateY(10);  
-        logoBox.setPrefWidth(1024);  // Larghezza della scena in base alla risoluzione dell'immagine di sfondo
-        logoBox.setPrefHeight(1024); // Altezza della scena
 
         // Creazione dei pulsanti
         Button btnCheckUpdates = new Button("Verifica Aggiornamenti");
@@ -75,9 +68,17 @@ public class ViewAggiornamenti {
 
         // Layout per il pulsante "Indietro" in alto a sinistra
         VBox backButtonBox = new VBox(btnBack);
-        backButtonBox.setAlignment(Pos.TOP_LEFT);
-        backButtonBox.setTranslateX(20); // Margine sinistro
-        backButtonBox.setTranslateY(20); // Margine superiore
+        backButtonBox.setAlignment(Pos.CENTER);
+        
+        // Layout per posizionare il logo in alto a sinistra
+        VBox logoBox = new VBox(logoImageView);
+        logoBox.setAlignment(Pos.CENTER);
+        logoBox.setTranslateX(-30);   
+        logoBox.setPrefWidth(150); 
+        logoBox.setPrefHeight(150);
+        
+        HBox h1 = new HBox(1100, backButtonBox, vbox, logoBox);
+        h1.setAlignment(Pos.TOP_CENTER);
 
         // Aggiungere un'immagine di sfondo
         Image backgroundImage = new Image(getClass().getResourceAsStream("/img/sfondo.jpeg"));
@@ -86,10 +87,12 @@ public class ViewAggiornamenti {
         backgroundImageView.setFitWidth(1024);
         backgroundImageView.setFitHeight(1024);
         backgroundImageView.setSmooth(true);
+        
+        VBox v1 = new VBox(100, h1, vbox);
 
         // Usa StackPane per sovrapporre l'immagine di sfondo, il logo e i pulsanti
         StackPane root = new StackPane();
-        root.getChildren().addAll(backgroundImageView, logoBox, vbox, backButtonBox); // Aggiungi l'immagine di sfondo, il logo, i pulsanti e il pulsante Indietro
+        root.getChildren().addAll(backgroundImageView, v1); // Aggiungi l'immagine di sfondo, il logo, i pulsanti e il pulsante Indietro
         
         backgroundImageView.fitWidthProperty().bind(root.widthProperty());
         backgroundImageView.fitHeightProperty().bind(root.heightProperty());
