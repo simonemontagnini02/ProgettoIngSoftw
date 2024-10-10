@@ -19,23 +19,6 @@ public class Amministratore extends Account
 		this.log = AmministratoreController.getLog();
 	}
 	
-	/*
-	public void registraPilota(ArrayList<Pilota> piloti) {
-		for(int i=0; i<piloti.size(); i++)
-		{
-			listaPiloti.aggiungiPilota(piloti.get(i));
-		}
-	}
-	
-	public void registraGP(ArrayList<GP> gps) {
-		for(int i=0; i<gps.size(); i++)
-		{
-			calendario.aggiungiGP(gps.get(i));
-		}
-	}
-	
-	*/
-	
 	public void aggiungiPilota(Pilota pilota) {
 		this.listaPiloti.aggiungiPilota(pilota);
 	}

@@ -102,9 +102,6 @@ public class ViewAggiornamenti {
         // Imposta la scena al stage
         stage.setTitle("Aggiornamenti");
         stage.setScene(scene);
-
-        // Ripristina lo stato di schermo intero se era attivo
-        
     }
 }
 
