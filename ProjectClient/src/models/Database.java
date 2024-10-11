@@ -1,73 +1,72 @@
 package models;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-
-import utilities.SocketManager;
-
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
+    private static Database instance; // Unica istanza del Singleton
 
-    // Metodo per salvare un GP nel database
-    public boolean saveGP(GP gp) {
-        
-        
+    private List<Lega> leghe;
+    private Calendario calendario;
+    private List<Account> account;
+    private ListaPiloti listaPiloti;
+    private List<Punteggio> punteggi;
+
+    // Costruttore privato per impedire la creazione di istanze dall'esterno
+    private Database() {
+        this.leghe = new ArrayList<Lega>();
+        this.calendario = new Calendario();
+        this.account = new ArrayList<Account>();
+        this.listaPiloti = new ListaPiloti();
+        this.punteggi = new ArrayList<>();
     }
 
-    // Metodo per aggiornare il valore di lastGP
-    public void updateLastGP(GP gp) {
-        String query = "UPDATE LASTGP SET nome = ?, data = ?";
-        
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-        	pstmt.setString(1, gp.getNome());
-            pstmt.setObject(2, gp.getData());
-
-            pstmt.executeUpdate();
-            System.out.println("LastGP aggiornato con successo!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+    // Metodo pubblico statico per ottenere l'istanza Singleton
+    public static synchronized Database getInstance() {
+        if (instance == null) {
+            instance = new Database(); // Crea l'istanza se non esiste
         }
+        return instance; // Ritorna sempre la stessa istanza
     }
-    
-    public static GP getLastGP() {
-        String query = "SELECT nome, data FROM LASTGP";
-        GP lastGP = null;
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    // Metodi synchronized per garantire sicurezza sui thread
+    public synchronized List<Lega> getLeghe() {
+        return leghe;
+    }
 
-            // Esegui la query
-            ResultSet rs = pstmt.executeQuery();
+    public synchronized void setLeghe(List<Lega> leghe) {
+        this.leghe = leghe;
+    }
 
-            // Se ci sono risultati
-            if (rs.next()) {
-                // Estrai i dati dal ResultSet
-                String nome = rs.getString("nome");
-                Timestamp timestamp = rs.getTimestamp("data");
-                LocalDateTime data = timestamp.toLocalDateTime();
+    public synchronized Calendario getCalendario() {
+        return calendario;
+    }
 
-                // Crea un'istanza di GP con i dati recuperati
-                lastGP = new GP(nome, data);
-            }
+    public synchronized void setCalendario(Calendario calendario) {
+        this.calendario = calendario;
+    }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public synchronized List<Account> getAccount() {
+        return account;
+    }
 
-        return lastGP;
+    public synchronized void setAccount(List<Account> account) {
+        this.account = account;
+    }
+
+    public synchronized ListaPiloti getListaPiloti() {
+        return listaPiloti;
+    }
+
+    public synchronized void setListaPiloti(ListaPiloti listaPiloti) {
+        this.listaPiloti = listaPiloti;
+    }
+
+    public synchronized List<Punteggio> getPunteggi() {
+        return punteggi;
+    }
+
+    public synchronized void setPunteggi(List<Punteggio> punteggi) {
+        this.punteggi = punteggi;
     }
 }

@@ -67,9 +67,6 @@ public class Lega {
 	
 	//IMPLEMENTA aggiungiRisultato?
 	
-	
-	
-	
 	// GETTERS SETTERS
 	public String getNome() {
 		return nome;

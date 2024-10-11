@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Account implements Serializable{
 	protected String username, password;
-	
+	protected String tipo;
 	public Account(String username) {
 		super();
 		if (username==null || username.equals("")) throw new IllegalArgumentException("Username nulla o vuota");
