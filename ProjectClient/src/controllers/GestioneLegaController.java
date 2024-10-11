@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.stage.Stage;
@@ -25,12 +26,25 @@ public class GestioneLegaController {
 		
 	}
 	
-	public void getRisultati(Stage stage) {
-			
-		}
+	public ArrayList<Risultato> getRisultati() {
+		return this.lega.getRisultati();
+	}
 	
-	public void getRose(Stage stage) {
-		
+	public ArrayList<Rosa> getRose() {
+		ArrayList<Rosa> rose=new ArrayList<Rosa>();
+		for(Partecipante p : this.lega.getPartecipanti().values()) {
+			rose.add(p.getRosa());
+		}
+		return rose;
+	}
+	
+	public boolean isCapo() {
+		if (partecipante instanceof Capo) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public static Utente getUtente() {
