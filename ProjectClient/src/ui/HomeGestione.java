@@ -192,7 +192,5 @@ public class HomeGestione {
 
         stage.setTitle("Gestione Lega");
         stage.setScene(scene);
-        
-        stage.show();
     }
 }
