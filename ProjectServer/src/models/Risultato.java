@@ -1,6 +1,8 @@
 package models;
 
-public class Risultato {
+import java.io.Serializable;
+
+public class Risultato implements Serializable{
 	private String nomeScuderia, nomeGP;
 	private int punteggioGP;
 	

@@ -1,13 +1,14 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListaPiloti {
+public class ListaPiloti implements Serializable{
 	private ArrayList<Pilota> piloti;
 
 	public ListaPiloti() {
 		super();
-		// TODO Auto-generated constructor stub
+		piloti=new ArrayList<Pilota>();
 	}
 	
 	public void aggiungiPilota(Pilota pilota) {

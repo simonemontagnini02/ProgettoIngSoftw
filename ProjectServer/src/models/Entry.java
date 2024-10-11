@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Entry {
+public class Entry implements Serializable{
 	protected LocalDateTime dataOra;
 
 	public Entry(LocalDateTime dataOra) {

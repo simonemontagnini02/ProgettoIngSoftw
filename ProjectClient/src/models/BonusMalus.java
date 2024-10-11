@@ -1,6 +1,8 @@
 package models;
 
-public class BonusMalus {
+import java.io.Serializable;
+
+public class BonusMalus implements Serializable{
 	private String nome;
 	private boolean verificato;
 	

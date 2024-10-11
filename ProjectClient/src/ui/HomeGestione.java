@@ -195,6 +195,7 @@ public class HomeGestione {
             
             centralBox = new VBox(30, comboBoxRose);
             centralBox.setAlignment(Pos.CENTER);
+            centralBox.setPrefHeight(135);
             
             mainLayout = new VBox(200, h1, centralBox, h3);
             mainLayout.setAlignment(Pos.TOP_CENTER);

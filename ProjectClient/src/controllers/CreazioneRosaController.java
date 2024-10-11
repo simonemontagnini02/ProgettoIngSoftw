@@ -12,7 +12,7 @@ public class CreazioneRosaController
 	private Partecipante partecipante;
 	private ListaPiloti listaPiloti;
 	private Rosa rosa;
-	private int creditiDisponibili, pilotiSelezionati;
+	private int creditiDisponibili, pilotiSelezionati, maxPilotiRosa;
 
 	public CreazioneRosaController(Partecipante partecipante) {
 		super();
@@ -30,6 +30,7 @@ public class CreazioneRosaController
 		this.rosa=partecipante.getRosa();
 		this.creditiDisponibili=this.partecipante.getCrediti();
 		this.pilotiSelezionati=rosa.getPiloti().size();
+		this.maxPilotiRosa=this.partecipante.getLega().getPilotiRosa();
 	}
 	
 	public void aggiungiPilota(Pilota pilota) {
@@ -66,6 +67,10 @@ public class CreazioneRosaController
 
 	public int getPilotiSelezionati() {
 		return this.pilotiSelezionati;
+	}
+	
+	public int getMaxPilotiRosa() {
+		return this.maxPilotiRosa;
 	}
 	
 	public int getCreditiDisponibili() {

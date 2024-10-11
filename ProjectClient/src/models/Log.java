@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Log {
+public class Log implements Serializable{
 	private ArrayList<Entry> entries;
 
 	public Log() {

@@ -1,6 +1,8 @@
 package models;
 
-public class Pilota {
+import java.io.Serializable;
+
+public class Pilota implements Serializable{
 	private String nome, cognome;
 	private int prezzo;
 	

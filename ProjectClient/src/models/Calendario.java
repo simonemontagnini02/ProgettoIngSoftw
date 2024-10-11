@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public class Calendario {
+public class Calendario implements Serializable{
     private Map<String, GP> gps; // (nomeGP-GP)
 
     public Calendario() {

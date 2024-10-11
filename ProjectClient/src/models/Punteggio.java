@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Punteggio {
+public class Punteggio implements Serializable{
 	private int puntiGP;
 	private GP gp;
 	private Pilota pilota;

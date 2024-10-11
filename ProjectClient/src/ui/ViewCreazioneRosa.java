@@ -55,14 +55,18 @@ public class ViewCreazioneRosa {
                     	controller.aggiornaPilotiSelezionati(-1);
                         creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
                         pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiSelezionati());
+                        updateButtonText(pilota);
                     } else {
-                        controller.aggiungiPilota(pilota);
-                        controller.aggiornaCreditiDisponibili(-pilota.getPrezzo());
-                        controller.aggiornaPilotiSelezionati(1);
-                        creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
-                        pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiSelezionati());
+                    	if((controller.getPilotiSelezionati() < controller.getMaxPilotiRosa()) && (controller.getCreditiDisponibili()-pilota.getPrezzo())>=0)
+                    	{
+                    		controller.aggiungiPilota(pilota);
+                            controller.aggiornaCreditiDisponibili(-pilota.getPrezzo());
+                            controller.aggiornaPilotiSelezionati(1);
+                            creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
+                            pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiSelezionati());
+                            updateButtonText(pilota);
+                    	}
                     }
-                    updateButtonText(pilota);
                 });
                 return this;
             }

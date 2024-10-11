@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class GP 
+public class GP implements Serializable
 {
 	private String nome;
 	private LocalDateTime data;

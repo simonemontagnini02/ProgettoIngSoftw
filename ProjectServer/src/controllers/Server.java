@@ -50,7 +50,10 @@ public class Server {
         Partecipante p2 = optional.get();
         p2.setNomeScuderia("Scuderia-Damiano");
         
-        DB.setListaPiloti(new ListaPiloti());
+        ListaPiloti listaPiloti=new ListaPiloti();
+        listaPiloti.aggiungiPilota(new Pilota("Charles", "Leclerc", 100));
+        listaPiloti.aggiungiPilota(new Pilota("Carlos", "Sainz", 70));
+        DB.setListaPiloti(listaPiloti);
         
         
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -108,6 +111,7 @@ class ClientHandler extends Thread {
                 	    	if(a.getUsername().equals(username)
                 	    		&& a.getPassword().equals(password)) {
                 	    		os.writeObject(a);
+                	    		os.flush();
                 	    	}
                 	    }
                 	} else {
@@ -117,6 +121,7 @@ class ClientHandler extends Thread {
                 
                 if(message.equals("listaPiloti")) {
                 	os.writeObject(DB.getListaPiloti());
+                	os.flush();
                 }
 
                 // Risponde al client
