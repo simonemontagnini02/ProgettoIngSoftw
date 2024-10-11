@@ -61,10 +61,11 @@ public class HomeGestione {
         // Creazione dei pulsanti
         Button btnRosa = new Button("Crea Rosa");
         Button btnFormazione = new Button("Schiera Formazione");
+        Button homeButton = new Button();
         Button classificaButton = new Button();
         Button risultatiButton = new Button();
         Button roseButton = new Button();
-        Button btnBack = new Button("Indietro");
+        Button btnBack = new Button("Esci");
         
         // Imposta una larghezza e un'altezza preferita per i pulsanti (tutti uguali)
         double buttonWidth = 300;
@@ -77,6 +78,8 @@ public class HomeGestione {
         btnFormazione.setPrefSize(buttonWidth, buttonHeight);
         
         buttonWidth = 200;
+        homeButton.setPrefWidth(buttonWidth);
+        homeButton.setPrefHeight(buttonHeight);
         classificaButton.setPrefWidth(buttonWidth);
         classificaButton.setPrefHeight(buttonHeight);
         risultatiButton.setPrefWidth(buttonWidth);
@@ -87,14 +90,24 @@ public class HomeGestione {
         risultatiButton.setPrefSize(buttonWidth, buttonHeight);
         roseButton.setPrefSize(buttonWidth, buttonHeight); 
         
+        Label text = new Label("Home");
+        text.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        Image homeImage = new Image(getClass().getResourceAsStream("/img/home.png"));
+        ImageView homeView = new ImageView(homeImage);
+        homeView.setFitWidth(35);
+        homeView.setFitHeight(35); 
+        HBox content = new HBox(10, text, homeView);
+        content.setAlignment(Pos.CENTER);
+        homeButton.setGraphic(content);
+        
         btnBack.setStyle("-fx-font-size: 16px;");
-        Label text = new Label("Classifica");
+        text = new Label("Classifica");
         text.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
         Image classificaImage = new Image(getClass().getResourceAsStream("/img/classifica.png"));
         ImageView classificaView = new ImageView(classificaImage);
         classificaView.setFitWidth(60);
         classificaView.setFitHeight(32); 
-        HBox content = new HBox(10, text, classificaView);
+        content = new HBox(10, text, classificaView);
         content.setAlignment(Pos.CENTER);
         classificaButton.setGraphic(content);
         
@@ -147,6 +160,14 @@ public class HomeGestione {
             System.out.println("Vai a schiera formazione");
         });
         
+        homeButton.setOnAction(event -> {
+        	centralBox.getChildren().setAll(btnRosa, btnFormazione);
+            centralBox.setPrefHeight(135);
+            mainLayout.getChildren().setAll(h1, centralBox, h3);
+        	root.getChildren().setAll(backgroundImageView, mainLayout);
+            scene.setRoot(root);
+        });
+        
         classificaButton.setOnAction(event -> {
             System.out.println("Visualizza classifica");
         });
@@ -155,7 +176,7 @@ public class HomeGestione {
             System.out.println("Visualizza Risultati");
         });
 
-        roseButton.setOnAction(event -> {
+        roseButton.setOnAction(event -> {        	
         	comboBoxRose = new ComboBox<>();
             nomiScuderia = new ArrayList<>(controller.getNomiScuderie()); 
             comboBoxRose.getItems().addAll(nomiScuderia);
@@ -171,47 +192,19 @@ public class HomeGestione {
                     ObservableList<String> rosa = FXCollections.observableArrayList(controller.getRosa(newValue));
                     listView.setItems(rosa);
                     
-                    centralBox = new VBox(30, comboBoxRose, listView);
-                    centralBox.setAlignment(Pos.CENTER);
+                    centralBox.getChildren().setAll(comboBoxRose, listView);
                     centralBox.setMaxWidth(300);
-                    
-                    mainLayout = new VBox(200, h1, centralBox, h3);
-                    mainLayout.setAlignment(Pos.TOP_CENTER);
-                    mainLayout.setPrefWidth(1366);
-                    mainLayout.setPrefHeight(768);
-                    
-                	root = new StackPane();
-                    root.getChildren().addAll(backgroundImageView, mainLayout);
-
-                    backgroundImageView.fitWidthProperty().bind(root.widthProperty());
-                    backgroundImageView.fitHeightProperty().bind(root.heightProperty());
-
-                    scene = new Scene(root, 1366, 768);
-                    scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-                    stage.setTitle("Gestione Lega");
-                    stage.setScene(scene);
+                    mainLayout.getChildren().setAll(h1, centralBox, h3);
+                	root.getChildren().setAll(backgroundImageView, mainLayout);
+                    scene.setRoot(root);
                 }
             });
             
-            centralBox = new VBox(30, comboBoxRose);
-            centralBox.setAlignment(Pos.CENTER);
-            centralBox.setPrefHeight(135);
-            
-            mainLayout = new VBox(200, h1, centralBox, h3);
-            mainLayout.setAlignment(Pos.TOP_CENTER);
-            mainLayout.setPrefWidth(1366);
-            mainLayout.setPrefHeight(768);
-            
-        	root = new StackPane();
-            root.getChildren().addAll(backgroundImageView, mainLayout);
-
-            backgroundImageView.fitWidthProperty().bind(root.widthProperty());
-            backgroundImageView.fitHeightProperty().bind(root.heightProperty());
-
-            scene = new Scene(root, 1366, 768);
-            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-            stage.setTitle("Gestione Lega");
-            stage.setScene(scene);
+            centralBox.getChildren().setAll(comboBoxRose);
+            centralBox.setPrefHeight(136);
+            mainLayout.getChildren().setAll(h1, centralBox, h3);
+        	root.getChildren().setAll(backgroundImageView, mainLayout);
+            scene.setRoot(root);
         });
         
         VBox backButtonBox = new VBox(btnBack);
@@ -239,7 +232,7 @@ public class HomeGestione {
         centralBox = new VBox(30, btnRosa, btnFormazione);
         centralBox.setAlignment(Pos.CENTER);
         
-        h3 = new HBox(10, classificaButton, risultatiButton, roseButton);
+        h3 = new HBox(10, homeButton, classificaButton, risultatiButton, roseButton);
         h3.setAlignment(Pos.BOTTOM_CENTER);
         h3.setTranslateY(-30);
         
