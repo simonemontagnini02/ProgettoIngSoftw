@@ -9,14 +9,14 @@ import utilities.SocketManager;
 
 public class CreazioneRosaController 
 {
-	private Partecipante p;
+	private Partecipante partecipante;
 	private ListaPiloti listaPiloti;
 	private Rosa rosa;
 	private int creditiDisponibili, pilotiSelezionati;
 
-	public CreazioneRosaController(Partecipante p) {
+	public CreazioneRosaController(Partecipante partecipante) {
 		super();
-		this.p = p;
+		this.partecipante = partecipante;
 		this.listaPiloti=null;
         PrintWriter out=SocketManager.getInstance().getPrintWriter();
         try {
@@ -27,8 +27,8 @@ public class CreazioneRosaController
 			e.printStackTrace();
 		}
         
-		this.rosa=p.getRosa();
-		this.creditiDisponibili=this.p.getCrediti();
+		this.rosa=partecipante.getRosa();
+		this.creditiDisponibili=this.partecipante.getCrediti();
 		this.pilotiSelezionati=rosa.getPiloti().size();
 	}
 	
@@ -39,22 +39,31 @@ public class CreazioneRosaController
 	public void eliminaPilota(Pilota pilota) {
 		this.rosa.eliminaPilota(pilota);
 	}
-	
-	public void aggiungiPilota() {
-		
-	}
 
-	public void creaRosa(Stage stage) {
+	public void creaRosa() {
+		this.partecipante.creaRosa(this.rosa);
     }
 	
-	public aggiornaCreditiDisponibili(int a) {
+	public void aggiornaCreditiDisponibili(int a) {
 		this.creditiDisponibili+=a;
 	}
 	
-	public aggiornaPilotiSelezionati(int a) {
-		this.creditiDisponibili+=a;
+	public void aggiornaPilotiSelezionati(int a) {
+		this.pilotiSelezionati+=a;
 	}
 	
+	public ListaPiloti getListaPiloti() {
+		return listaPiloti;
+	}
+	
+	public Rosa getRosa() {
+		return rosa;
+	}
+
+	public Partecipante getPartecipante() {
+		return partecipante;
+	}
+
 	public int getPilotiSelezionati() {
 		return this.pilotiSelezionati;
 	}
