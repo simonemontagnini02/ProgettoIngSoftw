@@ -14,11 +14,11 @@ public class Server {
         int port = 8080; // La porta su cui il server ascolta
         DB= Database.getInstance();
         Amministratore simone=new Amministratore("simone");
-        simone.setPassword("simone");
+        simone.setPassword("simonepassword");
         Utente andriy=new Utente("andriy");
-        andriy.setPassword("andriy");
+        andriy.setPassword("andriypassword");
         Utente damiano=new Utente("damiano");
-        damiano.setPassword("damiano");
+        damiano.setPassword("damianopassword");
         List<Account> account= new ArrayList<>();
         account.add(simone);
         account.add(andriy);
