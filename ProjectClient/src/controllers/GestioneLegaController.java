@@ -26,16 +26,28 @@ public class GestioneLegaController {
 		
 	}
 	
-	public ArrayList<Risultato> getRisultati() {
-		return this.lega.getRisultati();
+	public void getRisultati(Stage stage) {
+		
 	}
 	
-	public ArrayList<Rosa> getRose() {
-		ArrayList<Rosa> rose=new ArrayList<Rosa>();
+	public ArrayList<String> getNomiScuderie() {
+		ArrayList<String> nomi=new ArrayList<String>();
 		for(Partecipante p : this.lega.getPartecipanti().values()) {
-			rose.add(p.getRosa());
+			nomi.add(p.getNomeScuderia());
 		}
-		return rose;
+		return nomi;
+	}
+	
+	public ArrayList<String> getRosa(String nomeScuderia) {
+		ArrayList<String> piloti=new ArrayList<String>();
+		for(Partecipante p : this.lega.getPartecipanti().values()) {
+			if(nomeScuderia.equals(p.getNomeScuderia())) {
+				for(Pilota pilota : p.getRosa().getPiloti()) {
+					piloti.add(new String(pilota.getNome()+" "+pilota.getCognome()));
+				}
+			}
+		}
+		return piloti;
 	}
 	
 	public boolean isCapo() {

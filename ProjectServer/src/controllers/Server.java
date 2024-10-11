@@ -85,6 +85,10 @@ class ClientHandler extends Thread {
                 	    System.out.println("Formato del messaggio login non valido.");
                 	}
                 }
+                
+                if(message.equals("listaPiloti")) {
+                	os.writeObject(DB.getListaPiloti());
+                }
 
                 // Risponde al client
                 out.println("Server: ho ricevuto il tuo messaggio -> " + message);

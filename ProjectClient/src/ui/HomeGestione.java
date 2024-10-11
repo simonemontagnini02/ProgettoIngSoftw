@@ -1,8 +1,13 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controllers.CreazioneRosaController;
 import controllers.GestioneLegaController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,6 +25,13 @@ public class HomeGestione {
 		this.controller=controller;
 	}
 	
+    private HBox h1 = null;
+	private HBox h3 = null;
+	private VBox centralBox;
+	private ListView<String> listView;
+	private ComboBox<String> comboBoxRose;
+	private List<String> nomiScuderia;
+    
     public void showHomeGestione(Stage stage) {
 		// Aggiungere un'immagine di sfondo
         Image backgroundImage = new Image(getClass().getResourceAsStream("/img/sfondo.jpeg"));
@@ -141,7 +153,41 @@ public class HomeGestione {
         });
 
         roseButton.setOnAction(event -> {
-            System.out.println("Visualizza Rose");
+        	comboBoxRose = new ComboBox<>();
+            nomiScuderia = new ArrayList<>(controller.getNomiScuderie()); 
+            comboBoxRose.getItems().addAll(nomiScuderia);
+            comboBoxRose.setPromptText("Seleziona una rosa");
+            comboBoxRose.setPrefWidth(300);
+            comboBoxRose.setPrefHeight(40);
+            
+            comboBoxRose.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    System.out.println("Rosa selezionata: " + newValue);
+                    
+                    ListView<String> listView = new ListView<>();
+                    ObservableList<String> rosa = FXCollections.observableArrayList(controller.getRosa(newValue));
+                    listView.setItems(rosa);
+                }
+            });
+            
+            centralBox = new VBox(30, comboBoxRose, listView);
+            centralBox.setAlignment(Pos.CENTER);
+            
+            VBox mainLayout = new VBox(200, h1, centralBox, h3);
+            mainLayout.setAlignment(Pos.TOP_CENTER);
+            mainLayout.setPrefWidth(1366);
+            mainLayout.setPrefHeight(768);
+            
+        	StackPane root = new StackPane();
+            root.getChildren().addAll(backgroundImageView, mainLayout);
+
+            backgroundImageView.fitWidthProperty().bind(root.widthProperty());
+            backgroundImageView.fitHeightProperty().bind(root.heightProperty());
+
+            Scene scene = new Scene(root, 1366, 768);
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+            stage.setTitle("Gestione Lega");
+            stage.setScene(scene);
         });
         
         VBox backButtonBox = new VBox(btnBack);
@@ -163,18 +209,17 @@ public class HomeGestione {
         logoBox.setPrefWidth(150); 
         logoBox.setPrefHeight(150);
         
-        HBox h1 = new HBox(440, backButtonBox, vbox, logoBox);
+        h1 = new HBox(440, backButtonBox, vbox, logoBox);
         h1.setAlignment(Pos.TOP_CENTER);
         
-        VBox btnBox = new VBox(30, btnRosa, btnFormazione);
-        btnBox.setAlignment(Pos.CENTER);
+        centralBox = new VBox(30, btnRosa, btnFormazione);
+        centralBox.setAlignment(Pos.CENTER);
         
-        HBox h3 = new HBox(10, classificaButton, risultatiButton, roseButton);
+        h3 = new HBox(10, classificaButton, risultatiButton, roseButton);
         h3.setAlignment(Pos.BOTTOM_CENTER);
         h3.setTranslateY(-30);
         
-        
-        VBox mainLayout = new VBox(200, h1, btnBox, h3);
+        VBox mainLayout = new VBox(200, h1, centralBox, h3);
         mainLayout.setAlignment(Pos.TOP_CENTER);
         mainLayout.setPrefWidth(1366);
         mainLayout.setPrefHeight(768);
