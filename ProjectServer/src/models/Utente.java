@@ -34,68 +34,34 @@ public class Utente extends Account
 		return this.leghe.get(nomeLega);
 	}
 	
-	public Optional<Partecipante> iscrizioneLegaPubblica(String nomeLega)
+	public Optional<Partecipante> iscrizioneLegaPubblica(String nomeLega, Database DB)
 	{
-		Optional<LegaPubblica> legaTrovata = UtenteController.cercaLegaPubblica(nomeLega);
-		
-		if(legaTrovata.isPresent()) 
-		{
-			LegaPubblica lega=legaTrovata.get();
-			Partecipante partecipante = new Partecipante(this.username, lega);
-			boolean ris = lega.aggiungiPartecipante(partecipante);
-			if(ris) {
-				this.leghe.put(nomeLega, lega);
-				return Optional.ofNullable(partecipante);
-			}
-			else {
-				return Optional.empty();
+		List<Lega> leghe=DB.getLeghe();
+		for(Lega l : leghe) {
+			if(l.getNome().equals(nomeLega) && l instanceof LegaPubblica) {
+				Partecipante p=new Partecipante(this.getUsername(),l);
+				LegaPubblica lp= (LegaPubblica) l;
+				if(lp.aggiungiPartecipante(p)) {
+					return Optional.of(p);
+				}
 			}
 		}
-		else {
-			return Optional.empty();
-		}
-	}
-	
-	//////////// OPPURE
-	public Partecipante iscrizioneLegaPubblica(String nomeLega)
-	{
-		Partecipante partecipante;
-		LegaPubblica lega = UtenteController.cercaLegaPubblica(nomeLega);
-		
-		if(lega!=null) {
-			partecipante = new Partecipante(this.username, lega);
-			boolean ris = lega.aggiungiPartecipante(partecipante);
-			if(ris) {
-				this.leghe.put(nomeLega, lega);
-				return partecipante;
-			}
-			else {
-				return null;
-			}
-		}
-		return null;
+		return Optional.empty();
 	}
 	////////////
 	
-	public Optional<Partecipante> iscrizioneLegaPrivata(String nomeLega, String codice)
+	public Optional<Partecipante> iscrizioneLegaPrivata(String nomeLega, String codice, Database DB)
 	{
-		Optional<LegaPrivata> legaTrovata = UtenteController.cercaLegaPrivata(nomeLega);
-		
-		if(legaTrovata.isPresent()) 
-		{
-			LegaPrivata lega=legaTrovata.get();
-			Partecipante partecipante = new Partecipante(this.username, lega);
-			boolean ris = lega.aggiungiPartecipante(partecipante, codice);
-			if(ris) {
-				this.leghe.put(nomeLega, lega);
-				return Optional.ofNullable(partecipante);
-			}
-			else {
-				return Optional.empty();
+		List<Lega> leghe=DB.getLeghe();
+		for(Lega l : leghe) {
+			if(l.getNome().equals(nomeLega) && l instanceof LegaPrivata) {
+				Partecipante p=new Partecipante(this.getUsername(),l);
+				LegaPrivata lp= (LegaPrivata) l;
+				if(lp.aggiungiPartecipante(p, codice)) {
+					return Optional.of(p);
+				}
 			}
 		}
-		else {
-			return Optional.empty();
-		}
+		return Optional.empty();
 	}
 }
