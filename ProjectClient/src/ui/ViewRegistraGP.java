@@ -63,12 +63,13 @@ public class ViewRegistraGP {
         btnBack.setPrefHeight(30);
         btnBack.setTranslateX(50);
         btnBack.setTranslateY(10);
+        btnBack.setStyle("-fx-font-size: 16px;");
         
         // Layout per il pulsante "Indietro" in alto a sinistra
         VBox backButtonBox = new VBox(btnBack);
         backButtonBox.setAlignment(Pos.CENTER);
 
-        backButtonBox.setPrefWidth(120); 
+        backButtonBox.setPrefWidth(110); 
         backButtonBox.setPrefHeight(50);
         
         // Gestore per il pulsante Indietro
