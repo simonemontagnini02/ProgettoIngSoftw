@@ -46,7 +46,6 @@ public class ViewRegistraGP {
         VBox logoBox = new VBox(logoImageView);
         logoBox.setAlignment(Pos.CENTER);
         logoBox.setTranslateX(-30);
-        logoBox.setTranslateY(10);  
         logoBox.setPrefWidth(150);  
         logoBox.setPrefHeight(150);
         
@@ -64,8 +63,6 @@ public class ViewRegistraGP {
         btnBack.setPrefHeight(30);
         btnBack.setTranslateX(50);
         btnBack.setTranslateY(10);
-        
-        btnBack.setStyle("-fx-font-weight: bold;");
         
         // Layout per il pulsante "Indietro" in alto a sinistra
         VBox backButtonBox = new VBox(btnBack);
