@@ -28,4 +28,11 @@ public class GP
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+
+	@Override
+	public String toString() {
+		return "GP:  " + nome + ", data: " + data.toString();
+	}
+	
+	
 }

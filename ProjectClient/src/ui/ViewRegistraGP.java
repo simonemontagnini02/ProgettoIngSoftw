@@ -83,8 +83,11 @@ public class ViewRegistraGP {
         });
         
         ComboBox<GP> comboBoxGP = new ComboBox<>();
-        comboBoxGP.getItems().addAll(amministratoreController.getGPList());
-        
+        //comboBoxGP.getItems().addAll(amministratoreController.getGPList());
+        comboBoxGP.getItems().addAll(
+                new GP("GP Australia", LocalDateTime.of(2024, 3, 17, 14, 0)),
+                new GP("GP Italia", LocalDateTime.of(2024, 9, 8, 15, 0))
+            );
         
         // Pulsante per aggiungere un nuovo GP
         Button btnAddGP = new Button("Aggiungi GP");
