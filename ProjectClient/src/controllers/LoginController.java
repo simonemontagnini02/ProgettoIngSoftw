@@ -27,7 +27,8 @@ public class LoginController {
 	        	home.showHomeUtente(stage);
 	        }
 	        else if(result instanceof Amministratore) {
-	        	
+	        	HomeAmministratore home=new HomeAmministratore((Amministratore)result);
+	        	home.showHomeAmministratore(stage);
 	        }
 	        else {
 	        	
