@@ -102,6 +102,7 @@ public class ViewLogin {
 
         // Creazione della scena
         Scene scene = new Scene(root, 1366, 768); // Imposta la scena
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         // Imposta la scena al stage
         stage.setTitle("Login");

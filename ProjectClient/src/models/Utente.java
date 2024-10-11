@@ -13,6 +13,10 @@ public class Utente extends Account
 		this.leghe = new HashMap<String, Lega>();
 	}
 	
+	public Map<String, Lega> getLeghe() {
+		return leghe;
+	}
+
 	public Lega creaLega(String nomeLega, String tipologia) {
 		Lega lega;
 		if (tipologia.equals("privata")) {
