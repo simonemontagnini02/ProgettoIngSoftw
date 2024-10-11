@@ -22,6 +22,14 @@ public class GestioneLegaController {
 		}
 	}
 	
+	public String getNomeLega() {
+		return this.lega.getNome();
+	}
+	
+	public String getNomeScuderia() {
+		return this.partecipante.getNomeScuderia();
+	}
+	
 	public void getClassifica(Stage stage) {
 		
 	}

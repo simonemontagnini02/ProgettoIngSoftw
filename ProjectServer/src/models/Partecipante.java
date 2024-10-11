@@ -17,6 +17,8 @@ public class Partecipante implements Serializable{
 		this.lega = lega;
 		this.attivo = true;
 		this.crediti=lega.getMaxCrediti();
+		this.rosa=new Rosa(lega.getPilotiRosa());
+		this.formazione=new Formazione(lega.getPilotiForm());
 	}
 	
 	public void espelli() {

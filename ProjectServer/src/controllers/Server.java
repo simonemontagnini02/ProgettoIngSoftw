@@ -48,12 +48,9 @@ public class Server {
         p1.setNomeScuderia("Scuderia-Andriy");
         optional = damiano.iscrizioneLegaPubblica("LegaF1", DB);
         Partecipante p2 = optional.get();
-        p1.setNomeScuderia("Scuderia-Damiano");
+        p2.setNomeScuderia("Scuderia-Damiano");
         
-        for(String l : andriy.getLeghe().keySet())
-        {
-        	System.out.println(l);
-        }
+        DB.setListaPiloti(new ListaPiloti());
         
         
         try (ServerSocket serverSocket = new ServerSocket(port)) {

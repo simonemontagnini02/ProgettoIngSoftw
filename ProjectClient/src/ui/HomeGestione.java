@@ -31,6 +31,9 @@ public class HomeGestione {
 	private ListView<String> listView;
 	private ComboBox<String> comboBoxRose;
 	private List<String> nomiScuderia;
+	private VBox mainLayout;
+	private StackPane root;
+	private Scene scene;
     
     public void showHomeGestione(Stage stage) {
 		// Aggiungere un'immagine di sfondo
@@ -49,10 +52,10 @@ public class HomeGestione {
         logoImageView.setPreserveRatio(true);
         logoImageView.setSmooth(true);
 
-        Label nomeLega = new Label("Lega F1");
+        Label nomeLega = new Label(controller.getNomeLega());
         nomeLega.setStyle("-fx-font-weight: bold; -fx-font-size: 48px; -fx-text-fill: white;");
         nomeLega.setTranslateY(30);
-        Label nomeScuderia = new Label("Scuderia Rossi");
+        Label nomeScuderia = new Label(controller.getNomeScuderia());
         nomeScuderia.setStyle("-fx-font-weight: bold; -fx-font-size: 32px; -fx-text-fill: #800000;");
         
         // Creazione dei pulsanti
@@ -167,24 +170,44 @@ public class HomeGestione {
                     ListView<String> listView = new ListView<>();
                     ObservableList<String> rosa = FXCollections.observableArrayList(controller.getRosa(newValue));
                     listView.setItems(rosa);
+                    
+                    centralBox = new VBox(30, comboBoxRose, listView);
+                    centralBox.setAlignment(Pos.CENTER);
+                    centralBox.setMaxWidth(300);
+                    
+                    mainLayout = new VBox(200, h1, centralBox, h3);
+                    mainLayout.setAlignment(Pos.TOP_CENTER);
+                    mainLayout.setPrefWidth(1366);
+                    mainLayout.setPrefHeight(768);
+                    
+                	root = new StackPane();
+                    root.getChildren().addAll(backgroundImageView, mainLayout);
+
+                    backgroundImageView.fitWidthProperty().bind(root.widthProperty());
+                    backgroundImageView.fitHeightProperty().bind(root.heightProperty());
+
+                    scene = new Scene(root, 1366, 768);
+                    scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+                    stage.setTitle("Gestione Lega");
+                    stage.setScene(scene);
                 }
             });
             
-            centralBox = new VBox(30, comboBoxRose, listView);
+            centralBox = new VBox(30, comboBoxRose);
             centralBox.setAlignment(Pos.CENTER);
             
-            VBox mainLayout = new VBox(200, h1, centralBox, h3);
+            mainLayout = new VBox(200, h1, centralBox, h3);
             mainLayout.setAlignment(Pos.TOP_CENTER);
             mainLayout.setPrefWidth(1366);
             mainLayout.setPrefHeight(768);
             
-        	StackPane root = new StackPane();
+        	root = new StackPane();
             root.getChildren().addAll(backgroundImageView, mainLayout);
 
             backgroundImageView.fitWidthProperty().bind(root.widthProperty());
             backgroundImageView.fitHeightProperty().bind(root.heightProperty());
 
-            Scene scene = new Scene(root, 1366, 768);
+            scene = new Scene(root, 1366, 768);
             scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
             stage.setTitle("Gestione Lega");
             stage.setScene(scene);
@@ -199,7 +222,7 @@ public class HomeGestione {
         VBox vbox = new VBox(20, nomeLega, nomeScuderia);
         vbox.setAlignment(Pos.TOP_CENTER);
         vbox.setTranslateY(-10);
-        vbox.setPrefWidth(230); 
+        vbox.setPrefWidth(330); 
         vbox.setPrefHeight(100);
         
         // Layout per posizionare il logo in alto a sinistra
@@ -209,7 +232,7 @@ public class HomeGestione {
         logoBox.setPrefWidth(150); 
         logoBox.setPrefHeight(150);
         
-        h1 = new HBox(440, backButtonBox, vbox, logoBox);
+        h1 = new HBox(390, backButtonBox, vbox, logoBox);
         h1.setAlignment(Pos.TOP_CENTER);
         
         centralBox = new VBox(30, btnRosa, btnFormazione);
@@ -219,20 +242,20 @@ public class HomeGestione {
         h3.setAlignment(Pos.BOTTOM_CENTER);
         h3.setTranslateY(-30);
         
-        VBox mainLayout = new VBox(200, h1, centralBox, h3);
+        mainLayout = new VBox(200, h1, centralBox, h3);
         mainLayout.setAlignment(Pos.TOP_CENTER);
         mainLayout.setPrefWidth(1366);
         mainLayout.setPrefHeight(768);
         		
         // Usa StackPane per sovrapporre l'immagine di sfondo, il logo e il contenuto
-        StackPane root = new StackPane();
+        root = new StackPane();
         root.getChildren().addAll(backgroundImageView, mainLayout);
 
         backgroundImageView.fitWidthProperty().bind(root.widthProperty());
         backgroundImageView.fitHeightProperty().bind(root.heightProperty());
 
         // Creazione della scena
-        Scene scene = new Scene(root, 1366, 768);
+        scene = new Scene(root, 1366, 768);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         stage.setTitle("Gestione Lega");
