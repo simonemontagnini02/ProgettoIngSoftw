@@ -15,12 +15,11 @@ import models.Utente;
 
 public class HomeAmministratore{
 	
-	private Amministratore amministratore;
+	private AmministratoreController amministratoreController;
 	
-	
-    public HomeAmministratore(Amministratore amministratore) {
+    public HomeAmministratore(AmministratoreController amministratoreController) {
 		super();
-		this.amministratore = amministratore;
+		this.amministratoreController = amministratoreController;
 	}
 	
 	public void showHomeAmministratore (Stage stage) {
@@ -81,7 +80,6 @@ public class HomeAmministratore{
         
         btnGP.setOnAction(event -> {
             System.out.println("Vai a registra GP");
-            AmministratoreController amministratoreController = new AmministratoreController();
             ViewRegistraGP viewRegistraGP = new ViewRegistraGP(amministratoreController);
             try {
             	viewRegistraGP.showViewRegistraGP(stage);
