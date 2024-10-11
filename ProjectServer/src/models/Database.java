@@ -1,18 +1,19 @@
 package models;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
+    private static Database instance; // Unica istanza del Singleton
+
     private List<Lega> leghe;
     private Calendario calendario;
     private List<Account> account;
     private ListaPiloti listaPiloti;
     private List<Punteggio> punteggi;
 
-    public Database() {
-        super();
+    // Costruttore privato per impedire la creazione di istanze dall'esterno
+    private Database() {
         this.leghe = new ArrayList<Lega>();
         this.calendario = new Calendario();
         this.account = new ArrayList<Account>();
@@ -20,6 +21,15 @@ public class Database {
         this.punteggi = new ArrayList<>();
     }
 
+    // Metodo pubblico statico per ottenere l'istanza Singleton
+    public static synchronized Database getInstance() {
+        if (instance == null) {
+            instance = new Database(); // Crea l'istanza se non esiste
+        }
+        return instance; // Ritorna sempre la stessa istanza
+    }
+
+    // Metodi synchronized per garantire sicurezza sui thread
     public synchronized List<Lega> getLeghe() {
         return leghe;
     }

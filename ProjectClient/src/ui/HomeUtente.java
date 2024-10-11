@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.Utente;
+import models.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -70,7 +70,17 @@ public class HomeUtente {
         comboBoxLeghe.setPromptText("Seleziona una Lega");
         comboBoxLeghe.setPrefWidth(300);
         comboBoxLeghe.setPrefHeight(40);
-
+        
+        comboBoxLeghe.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("Lega selezionata: " + newValue);
+                Lega lega=utente.ricercaLega(newValue);
+                // Passa alla scena di gestione della lega
+                HomeGestione homeGestione = new HomeGestione(lega, utente);
+                homeGestione.showHomeGestione(stage);  // Passa lo stage corrente alla nuova scena
+            }
+        });
+        
         // Layout verticale (VBox) con i pulsanti e la ComboBox
         VBox vbox = new VBox(20, btnCreaLega, btnIscrivitiLega, comboBoxLeghe); // Spaziatura di 20 pixel tra gli elementi
         vbox.setAlignment(Pos.CENTER);
