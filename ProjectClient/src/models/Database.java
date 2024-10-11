@@ -21,25 +21,7 @@ public class Database {
 
     // Metodo per salvare un GP nel database
     public boolean saveGP(GP gp) {
-        try {
-        	SocketManager socketManager = SocketManager.getInstance();
-            PrintWriter out = socketManager.getPrintWriter();
-            BufferedReader in = socketManager.getBufferedReader();
-            
-            //Scrittura e lettura esito
-            out.println(gp.getNome() + ";" + gp.getData().toString());
-			String response = in.readLine();
-			if(response.equals("SUCCESSO"))
-				return true;
-			else {
-				System.err.println("Errore dal server: "  + response);
-				return false;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+        
         
     }
 
