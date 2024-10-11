@@ -14,6 +14,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import controllers.GestioneLegaController;
@@ -67,7 +69,7 @@ public class HomeUtente {
 
         // ComboBox per selezionare una lega
         ComboBox<String> comboBoxLeghe = new ComboBox<>();
-        List<String> leghe = utente.getLeghe(); // Ottieni la lista di leghe dall'oggetto Utente
+        List<String> leghe = new ArrayList<>(utente.getLeghe().keySet()); // Ottieni la lista di leghe dall'oggetto Utente
         comboBoxLeghe.getItems().addAll(leghe); // Aggiungi le leghe al ComboBox
         comboBoxLeghe.setPromptText("Seleziona una Lega");
         comboBoxLeghe.setPrefWidth(300);
