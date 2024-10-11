@@ -1,6 +1,8 @@
 package models;
 
-public class Partecipante {
+import java.io.Serializable;
+
+public class Partecipante implements Serializable{
 	protected String username;
 	protected String nomeScuderia;
 	protected Lega lega;

@@ -43,9 +43,10 @@ public class Utente extends Account
 		List<Lega> leghe=DB.getLeghe();
 		for(Lega l : leghe) {
 			if(l.getNome().equals(nomeLega) && l instanceof LegaPubblica) {
-				Partecipante p=new Partecipante(this.getUsername(),l);
 				LegaPubblica lp= (LegaPubblica) l;
+				Partecipante p=new Partecipante(this.getUsername(),l);
 				if(lp.aggiungiPartecipante(p)) {
+					this.leghe.put(nomeLega, l);
 					return Optional.of(p);
 				}
 			}
@@ -59,9 +60,10 @@ public class Utente extends Account
 		List<Lega> leghe=DB.getLeghe();
 		for(Lega l : leghe) {
 			if(l.getNome().equals(nomeLega) && l instanceof LegaPrivata) {
-				Partecipante p=new Partecipante(this.getUsername(),l);
 				LegaPrivata lp= (LegaPrivata) l;
+				Partecipante p=new Partecipante(this.getUsername(),l);
 				if(lp.aggiungiPartecipante(p, codice)) {
+					this.leghe.put(nomeLega, l);
 					return Optional.of(p);
 				}
 			}

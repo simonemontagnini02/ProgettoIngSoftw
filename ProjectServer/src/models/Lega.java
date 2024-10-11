@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Lega {
+public class Lega implements Serializable{
 	protected String nome;
 	protected Regolamento regolamento;
 	

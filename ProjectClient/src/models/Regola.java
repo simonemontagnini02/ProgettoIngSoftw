@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Regola 
+public class Regola implements Serializable
 {
 	private String nome, regola;
 	private int valore;

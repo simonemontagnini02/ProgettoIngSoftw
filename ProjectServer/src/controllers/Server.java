@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import models.*;
 
@@ -24,6 +25,37 @@ public class Server {
         account.add(andriy);
         account.add(damiano);
         DB.setAccount(account);
+        
+        LegaPubblica lega = new LegaPubblica("LegaF1");
+        Regolamento regolamento = new Regolamento();  
+        Regola [] r = new Regola [7];  
+        r[0] = new Regola ("MAX PARTECIPANTI", 4, "Numero massimo partecipanti");  
+        r[1] = new Regola ("MAX CREDITI", 500, "Numero massimo crediti per partecipante");  
+        r[2] = new Regola ("PILOTI ROSA", 5, "Numero massimo piloti rosa");  
+        r[3] = new Regola ("PILOTI FORMAZIONE", 3, "Numero massimo piloti formazione");
+        r[4] = new Regola ("Giro Veloce", 1, "Il pilota che ha completato il giro veloce guadagna un punto aggiuntivo");  
+        r[5] = new Regola ("Miglior Pilota Sky", 3, "Il migliore pilota del GP eletto da Sky guadagna 3 punti aggiuntivi");  
+        r[6] = new Regola ("Incidente", -3, "Penalità di tre punti in caso di incidente del pilota"); 
+        regolamento.setRegole(r);  
+        lega.setRegolamento(regolamento);
+        
+        List<Lega> leghe=new ArrayList<>();
+        leghe.add(lega);
+        DB.setLeghe(leghe);
+
+        Optional<Partecipante> optional = andriy.iscrizioneLegaPubblica("LegaF1", DB);
+        Partecipante p1 = optional.get();
+        p1.setNomeScuderia("Scuderia-Andriy");
+        optional = damiano.iscrizioneLegaPubblica("LegaF1", DB);
+        Partecipante p2 = optional.get();
+        p1.setNomeScuderia("Scuderia-Damiano");
+        
+        for(String l : andriy.getLeghe().keySet())
+        {
+        	System.out.println(l);
+        }
+        
+        
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server in ascolto sulla porta " + port);
 

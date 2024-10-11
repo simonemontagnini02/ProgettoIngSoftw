@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class LegaPubblica extends Lega{
+public class LegaPubblica extends Lega {
 
 	public LegaPubblica(String nomeLega) {
 		super(nomeLega);

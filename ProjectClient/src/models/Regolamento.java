@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Regolamento 
+public class Regolamento implements Serializable
 {
 	private Regola[] regole;
 	
