@@ -23,6 +23,10 @@ public class Rosa {
 	public void eliminaPilota(Pilota pilota) {
 		this.piloti.remove(pilota);
 	}
+	
+	public boolean containsPilota(Pilota pilota) {
+		return this.piloti.contains(pilota);
+	}
 
 	public ArrayList<Pilota> getPiloti() {
 		return piloti;

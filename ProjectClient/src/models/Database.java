@@ -1,5 +1,9 @@
 package models;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,31 +12,35 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+
+import utilities.SocketManager;
+
 import java.sql.Timestamp;
 
 public class Database {
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/tuo_database";
-    private static final String USER = "root"; // Cambia con il tuo utente
-    private static final String PASS = "password"; // Cambia con la tua password
 
     // Metodo per salvare un GP nel database
-    public void saveGP(GP gp) {
-        String query = "INSERT INTO GP (nome, data) VALUES (?, ?)";
+    public boolean saveGP(GP gp) {
+        try {
+        	SocketManager socketManager = SocketManager.getInstance();
+            PrintWriter out = socketManager.getPrintWriter();
+            BufferedReader in = socketManager.getBufferedReader();
+            
+            //Scrittura e lettura esito
+            out.println(gp.getNome() + ";" + gp.getData().toString());
+			String response = in.readLine();
+			if(response.equals("SUCCESSO"))
+				return true;
+			else {
+				System.err.println("Errore dal server: "  + response);
+				return false;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
         
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            // Imposta i valori per il PreparedStatement
-            pstmt.setString(1, gp.getNome());
-            pstmt.setObject(2, gp.getData()); 
-
-            // Esegui l'insert
-            pstmt.executeUpdate();
-            System.out.println("GP salvato con successo!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     // Metodo per aggiornare il valore di lastGP
