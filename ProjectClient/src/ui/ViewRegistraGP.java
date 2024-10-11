@@ -18,11 +18,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.Amministratore;
 import models.GP;
 
 public class ViewRegistraGP {
 	
-	private AmministratoreController amministratoreController; 
+	private Amministratore amministratore;
+	private AmministratoreController amministratoreController;
 	
 	public ViewRegistraGP(AmministratoreController amministratoreController) {
 		super();
@@ -74,9 +76,9 @@ public class ViewRegistraGP {
         // Gestore per il pulsante Indietro
         btnBack.setOnAction(event -> {
             // Ritorna alla schermata principale
-            HomeAmministratore homeAmministratore = new HomeAmministratore();
+            HomeAmministratore homeAmministratore = new HomeAmministratore(this.amministratore);
             try {
-                homeAmministratore.start(stage);
+                homeAmministratore.showHomeAmministratore(stage);
             } catch (Exception e) {
                 e.printStackTrace();
             }

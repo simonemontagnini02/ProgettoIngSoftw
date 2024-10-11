@@ -10,9 +10,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.Amministratore;
+import models.Utente;
 
-public class HomeAmministratore extends Application{
-	public void start (Stage stage) {
+public class HomeAmministratore{
+	
+	private Amministratore amministratore;
+	
+	
+    public HomeAmministratore(Amministratore amministratore) {
+		super();
+		this.amministratore = amministratore;
+	}
+	
+	public void showHomeAmministratore (Stage stage) {
 		// Aggiungere un'immagine di sfondo
         Image backgroundImage = new Image(getClass().getResourceAsStream("/img/sfondo.jpeg"));
         ImageView backgroundImageView = new ImageView(backgroundImage);
@@ -99,11 +110,5 @@ public class HomeAmministratore extends Application{
         
         stage.setTitle("Home Amministratore");
         stage.setScene(scene);
-        
-        stage.show();
 	}
-	
-	public static void main(String[] args) {
-        launch(args);
-    }
 }
