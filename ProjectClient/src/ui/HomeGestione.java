@@ -7,10 +7,21 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import models.Lega;
+import models.Utente;
 
-public class HomeGestione extends Application {
-	@Override
-    public void start(Stage stage) {
+public class HomeGestione {
+	private Utente utente;
+	private Lega lega;
+	
+	
+    public HomeGestione(Utente utente, Lega lega) {
+		super();
+		this.utente = utente;
+		this.lega=lega;
+	}
+	
+    public void showHomeGestione(Stage stage) {
 		// Aggiungere un'immagine di sfondo
         Image backgroundImage = new Image(getClass().getResourceAsStream("/img/sfondo.jpeg"));
         ImageView backgroundImageView = new ImageView(backgroundImage);
@@ -98,27 +109,23 @@ public class HomeGestione extends Application {
         btnBack.setTranslateX(50);
         btnBack.setTranslateY(10);
         btnBack.setOnAction(event -> {
-            /* Ritorna alla schermata precedente
-            HomeUtente mainApp = new HomeUtente();
+            // Ritorna alla schermata precedente
+            HomeUtente homeUtente = new HomeUtente(this.utente);
             try {
-                mainApp.start(stage);
+                homeUtente.showHomeUtente(stage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            */
         });
 
         // Gestori degli eventi per ogni pulsante
         btnRosa.setOnAction(event -> {
-            System.out.println("Vai a crea rosa");
-            /*
             ViewCreazioneRosa viewCreazioneRosa = new ViewCreazioneRosa();
         	try {
-        		viewCreazioneRosa.showViewCreazioneRosa(primaryStage);
+        		viewCreazioneRosa.showViewCreazioneRosa(stage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            */
         });
 
         btnFormazione.setOnAction(event -> {
@@ -187,9 +194,5 @@ public class HomeGestione extends Application {
         stage.setScene(scene);
         
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
