@@ -2,26 +2,17 @@ package models;
 
 import java.util.*;
 
-import controllers.AmministratoreController;
 
 public class Amministratore extends Account
 {
-	private ListaPiloti listaPiloti;
-	private Calendario calendario;
-	private ArrayList<Punteggio> punteggi;
-	private Log log;
 
 	public Amministratore(String username) {
 		super(username);
 		this.tipo="Amministratore";
-		this.listaPiloti = AmministratoreController.getListaPiloti();
-		this.calendario = AmministratoreController.getCalendario();
-		this.punteggi = AmministratoreController.getPunteggi();
-		this.log = AmministratoreController.getLog();
 	}
 	
-	public void aggiungiPilota(Pilota pilota) {
-		this.listaPiloti.aggiungiPilota(pilota);
+	public void aggiungiPilota(Pilota pilota, Database DB) {
+		DB.getListaPiloti().aggiungiPilota(pilota);
 	}
 
 	public void eliminaPilota(Pilota pilota) {

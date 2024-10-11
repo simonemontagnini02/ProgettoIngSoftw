@@ -16,6 +16,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import java.util.List;
 
+import controllers.GestioneLegaController;
+
 public class HomeUtente {
     
 	private Utente utente;
@@ -76,7 +78,8 @@ public class HomeUtente {
                 System.out.println("Lega selezionata: " + newValue);
                 Lega lega=utente.ricercaLega(newValue);
                 // Passa alla scena di gestione della lega
-                HomeGestione homeGestione = new HomeGestione(lega, utente);
+                GestioneLegaController controller=new GestioneLegaController(utente, lega);
+                HomeGestione homeGestione = new HomeGestione(controller);
                 homeGestione.showHomeGestione(stage);  // Passa lo stage corrente alla nuova scena
             }
         });
