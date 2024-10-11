@@ -1,6 +1,5 @@
 package models;
 
-import controllers.UtenteController;
 
 import java.io.Serializable;
 import java.util.*;
