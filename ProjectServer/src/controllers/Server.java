@@ -48,6 +48,7 @@ class ClientHandler extends Thread {
     private PrintWriter out;
     private BufferedReader in;
     private Database DB;
+    private ObjectOutputStream os;
 
     public ClientHandler(Socket socket, Database DB) {
         this.clientSocket = socket;
@@ -60,13 +61,29 @@ class ClientHandler extends Thread {
             // Creazione degli stream di input/output
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
+            os= new ObjectOutputStream(clientSocket.getOutputStream());
             String message;
             // Leggere i messaggi dal client finché non viene inviato "exit"
             while ((message = in.readLine()) != null) {
                 System.out.println("Messaggio dal client: " + message);
                 if ("exit".equalsIgnoreCase(message)) {
                     break;
+                }
+                if(message.startsWith("login*")) {
+                	String[] parts = message.split("\\*");
+
+                	if (parts.length == 3 && parts[0].equals("login")) {
+                	    String username = parts[1];
+                	    String password = parts[2];
+                	    for(Account a: DB.getAccount()) {
+                	    	if(a.getUsername().equals(username)
+                	    		&& a.getPassword().equals(password)) {
+                	    		os.writeObject(a);
+                	    	}
+                	    }
+                	} else {
+                	    System.out.println("Formato del messaggio login non valido.");
+                	}
                 }
 
                 // Risponde al client
