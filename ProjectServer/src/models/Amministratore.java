@@ -11,34 +11,41 @@ public class Amministratore extends Account
 		this.tipo="Amministratore";
 	}
 	
-	public void aggiungiPilota(Pilota pilota, Database DB) {
+	public void aggiungiPilota(Pilota pilota, Database DB) {		
+		ListaPiloti list=DB.getListaPiloti();
 		DB.getListaPiloti().aggiungiPilota(pilota);
+		DB.setListaPiloti(list);
 	}
 
-	public void eliminaPilota(Pilota pilota) {
-		this.listaPiloti.eliminaPilota(pilota);
+	public void eliminaPilota(Pilota pilota, Database DB) {
+		ListaPiloti list=DB.getListaPiloti();
+		list.eliminaPilota(pilota);
+		DB.setListaPiloti(list);
 	}
 	
-	public void modificaPrezzo(Pilota pilota, int nuovoPrezzo) {
-		ArrayList<Pilota> piloti = this.listaPiloti.getPiloti();
-		piloti.remove(pilota);
-		pilota.setPrezzo(nuovoPrezzo);
-		piloti.add(pilota);
+	public void modificaPrezzo(Pilota pilota, int nuovoPrezzo, Database DB) {
+		ListaPiloti list=DB.getListaPiloti();
+		list.eliminaPilota(pilota);
+		Pilota p=new Pilota(pilota.getNome(), pilota.getCognome(), nuovoPrezzo);
+		list.aggiungiPilota(p);
+		DB.setListaPiloti(list);
 	}
 	
-	public void registraGP(GP gp) {
-		this.calendario.aggiungiGP(gp);
+	public void registraGP(GP gp, Database DB) {
+		Calendario c= DB.getCalendario();
+		c.aggiungiGP(gp);
+		DB.setCalendario(c);
 	}
 	
-	public void eliminaGP(GP gp) {
-		this.calendario.eliminaGP(gp.getNome());
+	public void eliminaGP(GP gp, Database DB) {
+		Calendario c= DB.getCalendario();
+		c.eliminaGP(gp.getNome());
+		DB.setCalendario(c);
 	}
 	
-	public void registraPunteggi(ArrayList<Punteggio> punteggi) {
-		this.punteggi.addAll(punteggi);
-	}
-	
-	public ArrayList<Entry> getEntryLog() {
-		return this.log.visualizzaLog();
+	public void registraPunteggi(List<Punteggio> punteggi, Database DB) {
+		List<Punteggio> p=DB.getPunteggi();
+		p.addAll(punteggi);
+		DB.setPunteggi(p);
 	}
 }
