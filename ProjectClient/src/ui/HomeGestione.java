@@ -1,5 +1,7 @@
 package ui;
 
+import controllers.CreazioneRosaController;
+import controllers.GestioneLegaController;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,18 +9,15 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import models.Lega;
-import models.Utente;
+import models.*;
 
 public class HomeGestione {
-	private Utente utente;
-	private Lega lega;
+	private GestioneLegaController controller;
 	
 	
-    public HomeGestione(Utente utente, Lega lega) {
+    public HomeGestione(GestioneLegaController controller) {
 		super();
-		this.utente = utente;
-		this.lega=lega;
+		this.controller=controller;
 	}
 	
     public void showHomeGestione(Stage stage) {
@@ -110,7 +109,7 @@ public class HomeGestione {
         btnBack.setTranslateY(10);
         btnBack.setOnAction(event -> {
             // Ritorna alla schermata precedente
-            HomeUtente homeUtente = new HomeUtente(this.utente);
+            HomeUtente homeUtente = new HomeUtente(GestioneLegaController.getUtente());
             try {
                 homeUtente.showHomeUtente(stage);
             } catch (Exception e) {
@@ -120,7 +119,8 @@ public class HomeGestione {
 
         // Gestori degli eventi per ogni pulsante
         btnRosa.setOnAction(event -> {
-            ViewCreazioneRosa viewCreazioneRosa = new ViewCreazioneRosa();
+        	CreazioneRosaController creazioneRosaController=new CreazioneRosaController(GestioneLegaController.getPartecipante());
+            ViewCreazioneRosa viewCreazioneRosa = new ViewCreazioneRosa(creazioneRosaController);
         	try {
         		viewCreazioneRosa.showViewCreazioneRosa(stage);
             } catch (Exception e) {

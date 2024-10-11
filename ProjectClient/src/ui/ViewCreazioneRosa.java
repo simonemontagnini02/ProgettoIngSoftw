@@ -3,6 +3,7 @@ package ui;
 import java.util.ArrayList;
 
 import controllers.CreazioneRosaController;
+import javafx.collections.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
@@ -11,16 +12,11 @@ import javafx.stage.Stage;
 import models.*;
 
 public class ViewCreazioneRosa {
-	private CreazioneRosaController controller=null;
-	private Partecipante p;
-	private ListaPiloti listaPiloti;
-	private Rosa rosa;
+	private CreazioneRosaController controller;
 	
-	public ViewCreazioneRosa(Lega lega, Partecipante part) {
+	public ViewCreazioneRosa(CreazioneRosaController controller) {
 		super();
-		this.p=part;
-		this.controller=new CreazioneRosaController(part);
-		this.listaPiloti=this.controller.getListaPiloti();
+		this.controller=controller;
 	}
 	
     public void showViewCreazioneRosa(Stage stage) {
@@ -42,7 +38,22 @@ public class ViewCreazioneRosa {
         // Crea la colonna per il pulsante di acquisto/vendita
         TableColumn<Pilota, Void> azioneColonna = new TableColumn<>("Azione");
         azioneColonna.setCellFactory(param -> new TableCell<Pilota, Void>() {
-            private final Button actionButton = new Button("Compra");
+            private final Button actionButton = new Button();
+
+            public TableCell<Pilota, Void> createCell() {
+                actionButton.setOnAction(event -> {
+                    Pilota pilota = getTableView().getItems().get(getIndex());
+                    if (controller.getRosa().containsPilota(pilota)) {
+                    	controller.eliminaPilota(pilota);
+                    	controller.aggiornaCrediti(pilota.getPrezzo());
+                        creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
+                    } else {
+                        rosa.aggiungiPilota(pilota);
+                    }
+                    updateButtonText(pilota);
+                });
+                return this;
+            }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
@@ -50,23 +61,17 @@ public class ViewCreazioneRosa {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    // Imposta l'azione del pulsante
+                    Pilota pilota = getTableView().getItems().get(getIndex());
                     setGraphic(actionButton);
+                    updateButtonText(pilota);
+                }
+            }
 
-                    // Gestisci il clic sul pulsante
-                    actionButton.setOnAction(event -> {
-                        if (actionButton.getText().equals("Compra")) {
-                            // Se il pulsante dice "Compra", acquistiamo il pilota
-                            actionButton.setText("Vendi");
-                            Pilota pilota = getTableView().getItems().get(getIndex());
-                            System.out.println("Comprato: " + pilota.getNome() + " " + pilota.getCognome() + " per " + pilota.getPrezzo());
-                        } else {
-                            // Se il pulsante dice "Vendi", vendiamo il pilota
-                            actionButton.setText("Compra");
-                            Pilota pilota = getTableView().getItems().get(getIndex());
-                            System.out.println("Venduto: " + pilota.getNome() + " " + pilota.getCognome() + " per " + pilota.getPrezzo());
-                        }
-                    });
+            private void updateButtonText(Pilota pilota) {
+                if (rosa.containsPilota(pilota)) {
+                    actionButton.setText("Vendi");
+                } else {
+                    actionButton.setText("Compra");
                 }
             }
         });
@@ -74,21 +79,14 @@ public class ViewCreazioneRosa {
         // Aggiungi le colonne alla TableView
         tableView.getColumns().addAll(nomeColonna, cognomeColonna, prezzoColonna, azioneColonna);
 
-        // Crea una lista di piloti
-        ObservableList<Pilota> piloti = FXCollections.observableArrayList();
-    	for(Pilota pilota : this.listaPiloti.getPiloti())
-    	{
-    		piloti.add(new CheckBox(pilota.getNome()+" "+pilota.getCognome()+" "+pilota.getPrezzo()));
-    	}
-
-        // Aggiungi i dati alla TableView
+        ObservableList<Pilota> piloti = FXCollections.observableArrayList(this.listaPiloti.getPiloti());
         tableView.setItems(piloti);
 
         // Avvolgi la TableView in un ScrollPane
         ScrollPane scrollPane = new ScrollPane(tableView);
-        scrollPane.setFitToWidth(true); // Rende la TableView larga come lo ScrollPane
+        scrollPane.setFitToWidth(true);
 
-        VBox vbox = new VBox(scrollPane);
+        VBox root = new VBox(scrollPane);
         Scene scene = new Scene(root, 1366, 768);
         stage.setTitle("Creazione Lega");
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());

@@ -10,36 +10,34 @@ import utilities.SocketManager;
 public class CreazioneRosaController 
 {
 	private Partecipante p;
+	private ListaPiloti listaPiloti;
+	private Rosa rosa;
+	private int creditiDisponibili, pilotiSelezionati;
 
 	public CreazioneRosaController(Partecipante p) {
 		super();
 		this.p = p;
-	}
-	
-	public ListaPiloti getListaPiloti() {
-		ListaPiloti result = null;
+		this.listaPiloti=null;
         PrintWriter out=SocketManager.getInstance().getPrintWriter();
         try {
 			ObjectInputStream is = new ObjectInputStream(SocketManager.getInstance().getInputStream());
 			out.println("listaPiloti");
-	        result= (ListaPiloti) is.readObject();
+			this.listaPiloti= (ListaPiloti) is.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return result;
-    }
+        
+		this.rosa=p.getRosa();
+		this.creditiDisponibili=this.p.getCrediti();
+		this.pilotiSelezionati=rosa.getPiloti().size();
+	}
 	
-	public Rosa getRosa() {
-		Rosa result = null;
-        PrintWriter out=SocketManager.getInstance().getPrintWriter();
-        try {
-			ObjectInputStream is = new ObjectInputStream(SocketManager.getInstance().getInputStream());
-			out.println("rosa*"+p.getLega().getNome()+"*"+p.getNomeScuderia()); //Passo rosa*nomeLega*nomeScuderia
-	        result= (Rosa) is.readObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return result;
+	public void aggiungiPilota(Pilota pilota) {
+		this.rosa.aggiungiPilota(pilota);
+	}
+	
+	public void eliminaPilota(Pilota pilota) {
+		this.rosa.eliminaPilota(pilota);
 	}
 	
 	public void aggiungiPilota() {
@@ -49,11 +47,19 @@ public class CreazioneRosaController
 	public void creaRosa(Stage stage) {
     }
 	
+	public aggiornaCreditiDisponibili(int a) {
+		this.creditiDisponibili+=a;
+	}
+	
+	public aggiornaPilotiSelezionati(int a) {
+		this.creditiDisponibili+=a;
+	}
+	
 	public int getPilotiSelezionati() {
-		return this.p.getRosa().getPiloti().size();
+		return this.pilotiSelezionati;
 	}
 	
 	public int getCreditiDisponibili() {
-		return this.p.getCrediti();
+		return this.creditiDisponibili;
 	}
 }
