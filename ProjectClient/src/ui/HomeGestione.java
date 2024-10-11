@@ -36,9 +36,9 @@ public class HomeGestione extends Application {
         // Creazione dei pulsanti
         Button btnRosa = new Button("Crea Rosa");
         Button btnFormazione = new Button("Schiera Formazione");
-        Button classificaButton = new Button("Classifica");
-        Button risultatiButton = new Button("Risultati");
-        Button roseButton = new Button("Rose");
+        Button classificaButton = new Button();
+        Button risultatiButton = new Button();
+        Button roseButton = new Button();
         Button btnBack = new Button("Indietro");
         
         // Imposta una larghezza e un'altezza preferita per i pulsanti (tutti uguali)
@@ -60,7 +60,38 @@ public class HomeGestione extends Application {
         roseButton.setPrefHeight(buttonHeight);
         classificaButton.setPrefSize(buttonWidth, buttonHeight);
         risultatiButton.setPrefSize(buttonWidth, buttonHeight);
-        roseButton.setPrefSize(buttonWidth, buttonHeight);
+        roseButton.setPrefSize(buttonWidth, buttonHeight); 
+        
+        btnBack.setStyle("-fx-font-size: 16px;");
+        Label text = new Label("Classifica");
+        text.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        Image classificaImage = new Image(getClass().getResourceAsStream("/img/classifica.png"));
+        ImageView classificaView = new ImageView(classificaImage);
+        classificaView.setFitWidth(60);
+        classificaView.setFitHeight(32); 
+        HBox content = new HBox(10, text, classificaView);
+        content.setAlignment(Pos.CENTER);
+        classificaButton.setGraphic(content);
+        
+        text = new Label("Rose");
+        text.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        Image roseImage = new Image(getClass().getResourceAsStream("/img/rose.png"));
+        ImageView roseView = new ImageView(roseImage);
+        roseView.setFitWidth(35);
+        roseView.setFitHeight(35); 
+        content = new HBox(10, text, roseView);
+        content.setAlignment(Pos.CENTER);
+        roseButton.setGraphic(content);
+        
+        text = new Label("Risultati");
+        text.setStyle("-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;");
+        Image risultatiImage = new Image(getClass().getResourceAsStream("/img/risultati.png"));
+        ImageView risultatiView = new ImageView(risultatiImage);
+        risultatiView.setFitWidth(35);
+        risultatiView.setFitHeight(35); 
+        content = new HBox(10, text, risultatiView);
+        content.setAlignment(Pos.CENTER);
+        risultatiButton.setGraphic(content);
         
         btnBack.setPrefWidth(110);
         btnBack.setPrefHeight(30);

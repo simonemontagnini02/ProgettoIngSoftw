@@ -2,7 +2,7 @@
     -fx-background-color: rgb(255, 128, 64); /* Colore di sfondo verde */
     -fx-text-fill: white; /* Colore del testo */
     -fx-font-weight: bold;
-    -fx-font-size: 16px; /* Dimensione del font */
+    -fx-font-size: 20px; /* Dimensione del font */
     -fx-padding: 10px 20px; /* Padding interno */
     -fx-background-radius: 5; /* Angoli arrotondati */
     -fx-border-radius: 5; /* Angoli arrotondati del bordo */

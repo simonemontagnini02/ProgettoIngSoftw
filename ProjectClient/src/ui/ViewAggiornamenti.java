@@ -41,6 +41,7 @@ public class ViewAggiornamenti {
         
         btnBack.setTranslateX(50);
         btnBack.setTranslateY(10);
+        btnBack.setStyle("-fx-font-size: 16px;");
         
         // Gestori degli eventi per i pulsanti
         btnCheckUpdates.setOnAction(event -> {
