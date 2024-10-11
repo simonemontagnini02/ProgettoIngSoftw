@@ -5,6 +5,7 @@ public class Partecipante {
 	protected String nomeScuderia;
 	protected Lega lega;
 	protected boolean attivo;
+	protected int crediti;
 	
 	protected Rosa rosa;
 	protected Formazione formazione;
@@ -13,6 +14,7 @@ public class Partecipante {
 		this.username = username;
 		this.lega = lega;
 		this.attivo = true;
+		this.crediti=lega.getMaxCrediti();
 	}
 	
 	public void espelli() {
@@ -25,6 +27,10 @@ public class Partecipante {
 	
 	public void creaRosa(Rosa rosa) {
 		this.rosa = rosa;
+		
+		for(Pilota pilota : rosa.getPiloti()) {
+			this.crediti-=pilota.getPrezzo();
+		}
 	}
 
 	public void schieraFormazione(Formazione formazione) {
@@ -45,8 +51,16 @@ public class Partecipante {
 		return nomeScuderia;
 	}
 
-	public void setNomeScuderia(String nomeScuderia) {
+	public boolean setNomeScuderia(String nomeScuderia) {
+		for(Partecipante p : this.lega.getPartecipanti().values()) 
+		{
+			if(nomeScuderia.equals(p.getNomeScuderia()))
+			{
+				return false;
+			}
+		}
 		this.nomeScuderia = nomeScuderia;
+		return true;
 	}
 
 	public Lega getLega() {
@@ -65,15 +79,19 @@ public class Partecipante {
 		return rosa;
 	}
 
-	public void setRosa(Rosa rosa) {
-		this.rosa = rosa;
-	}
-
 	public Formazione getFormazione() {
 		return formazione;
 	}
 
 	public void setFormazione(Formazione formazione) {
 		this.formazione = formazione;
+	}
+
+	public int getCrediti() {
+		return crediti;
+	}
+
+	public void setCrediti(int crediti) {
+		this.crediti = crediti;
 	}
 }
