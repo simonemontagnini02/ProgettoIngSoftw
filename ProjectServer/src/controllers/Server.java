@@ -12,7 +12,7 @@ public class Server {
 	private static Database DB;
     public static void main(String[] args) {
         int port = 8080; // La porta su cui il server ascolta
-        DB= new Database();
+        DB= Database.getInstance();
         Amministratore simone=new Amministratore("simone");
         simone.setPassword("simone");
         Utente andriy=new Utente("andriy");
