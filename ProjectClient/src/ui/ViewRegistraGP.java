@@ -12,6 +12,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -23,7 +25,6 @@ import models.GP;
 
 public class ViewRegistraGP {
 	
-	private Amministratore amministratore;
 	private AmministratoreController amministratoreController;
 	
 	public ViewRegistraGP(AmministratoreController amministratoreController) {
@@ -76,7 +77,7 @@ public class ViewRegistraGP {
         // Gestore per il pulsante Indietro
         btnBack.setOnAction(event -> {
             // Ritorna alla schermata principale
-            HomeAmministratore homeAmministratore = new HomeAmministratore(this.amministratore);
+            HomeAmministratore homeAmministratore = new HomeAmministratore(this.amministratoreController);
             try {
                 homeAmministratore.showHomeAmministratore(stage);
             } catch (Exception e) {
@@ -93,8 +94,11 @@ public class ViewRegistraGP {
         
         // Pulsante per aggiungere un nuovo GP
         Button btnAddGP = new Button("Aggiungi GP");
+        Button btnRemoveGP = new Button("Rimuovi GP");
         
-        VBox vbox = new VBox(20, btnAddGP, comboBoxGP);
+        HBox h2 = new HBox(50, btnAddGP, btnRemoveGP);
+        h2.setAlignment(Pos.CENTER);
+        VBox vbox = new VBox(20, h2, comboBoxGP);
         vbox.setAlignment(Pos.CENTER);
         HBox h1 = new HBox(1100, backButtonBox, logoBox);
         h1.setAlignment(Pos.TOP_CENTER);
@@ -110,6 +114,17 @@ public class ViewRegistraGP {
         
         // Azione del pulsante per aggiungere un GP
         btnAddGP.setOnAction(event -> showAddGPDialog(comboBoxGP));
+        btnRemoveGP.setOnAction(event -> {
+        	GP selectedGP = comboBoxGP.getSelectionModel().getSelectedItem();
+        	if(selectedGP != null) {
+        		comboBoxGP.getItems().remove(selectedGP);
+        		//this.amministratoreController.removeGP(nuovoGP);
+        	} else {
+        		Alert alert = new Alert(AlertType.WARNING, "Seleziona un GP da rimuovere.");
+        		alert.setTitle("Attenzione");
+                alert.showAndWait();
+        	}
+        });
         
         Scene scene = new Scene(root, 1366, 768);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
@@ -135,7 +150,7 @@ public class ViewRegistraGP {
 	    Label hourLabel = new Label("Ore:");
 	    Spinner<Integer> hourSpinner = new Spinner<>(0,23, 12); //Valore iniziale 12
 	    
-	  //Label per Ore
+	    //Label per Ore
 	    Label minuteLabel = new Label("Minuti:");
 	    Spinner<Integer> minuteSpinner = new Spinner<>(0,59, 0); //Valore iniziale 12
 	    
@@ -148,6 +163,7 @@ public class ViewRegistraGP {
 	        if (nome != null && dateTime != null) {
 	        	GP nuovoGP = new GP(nome, dateTime);
 	            comboBoxGP.getItems().add(nuovoGP);
+	            //this.amministratoreController.saveGP(nuovoGP);
 	            dialog.close();
             }
 	    });
