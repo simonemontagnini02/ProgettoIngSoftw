@@ -26,7 +26,9 @@ public class Server {
         account.add(damiano);
         DB.setAccount(account);
         
-        LegaPubblica lega = new LegaPubblica("LegaF1");
+        LegaPubblica lega = (LegaPubblica) damiano.creaLega("LegaF1", "pubblica");
+        Capo capo = lega.getCapo();
+        capo.setNomeScuderia("Scuderia-Damiano");
         Regolamento regolamento = new Regolamento();  
         Regola [] r = new Regola [7];  
         r[0] = new Regola ("MAX PARTECIPANTI", 4, "Numero massimo partecipanti");  
@@ -46,9 +48,6 @@ public class Server {
         Optional<Partecipante> optional = andriy.iscrizioneLegaPubblica("LegaF1", DB);
         Partecipante p1 = optional.get();
         p1.setNomeScuderia("Scuderia-Andriy");
-        optional = damiano.iscrizioneLegaPubblica("LegaF1", DB);
-        Partecipante p2 = optional.get();
-        p2.setNomeScuderia("Scuderia-Damiano");
         
         ListaPiloti listaPiloti=new ListaPiloti();
         listaPiloti.aggiungiPilota(new Pilota("Charles", "Leclerc", 100));
@@ -111,7 +110,6 @@ class ClientHandler extends Thread {
                 	    	if(a.getUsername().equals(username)
                 	    		&& a.getPassword().equals(password)) {
                 	    		os.writeObject(a);
-                	    		os.flush();
                 	    	}
                 	    }
                 	} else {
@@ -120,10 +118,10 @@ class ClientHandler extends Thread {
                 }
                 
                 if(message.equals("listaPiloti")) {
+                	System.out.println("Richiesta lista piloti");
                 	os.writeObject(DB.getListaPiloti());
-                	os.flush();
                 }
-
+                
                 // Risponde al client
                 out.println("Server: ho ricevuto il tuo messaggio -> " + message);
             }

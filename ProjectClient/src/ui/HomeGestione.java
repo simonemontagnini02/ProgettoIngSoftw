@@ -61,6 +61,8 @@ public class HomeGestione {
         // Creazione dei pulsanti
         Button btnRosa = new Button("Crea Rosa");
         Button btnFormazione = new Button("Schiera Formazione");
+        Button btnCalcola = new Button("Calcola Giornata");
+        Button btnGestione = new Button("Gestione Partecipanti");
         Button homeButton = new Button();
         Button classificaButton = new Button();
         Button risultatiButton = new Button();
@@ -76,6 +78,12 @@ public class HomeGestione {
         btnFormazione.setPrefHeight(buttonHeight);
         btnRosa.setPrefSize(buttonWidth, buttonHeight);
         btnFormazione.setPrefSize(buttonWidth, buttonHeight);
+        btnCalcola.setPrefWidth(buttonWidth);
+        btnCalcola.setPrefHeight(buttonHeight);
+        btnGestione.setPrefWidth(buttonWidth);
+        btnGestione.setPrefHeight(buttonHeight);
+        btnCalcola.setPrefSize(buttonWidth, buttonHeight);
+        btnGestione.setPrefSize(buttonWidth, buttonHeight);
         
         buttonWidth = 200;
         homeButton.setPrefWidth(buttonWidth);
@@ -160,10 +168,25 @@ public class HomeGestione {
             System.out.println("Vai a schiera formazione");
         });
         
+        btnCalcola.setOnAction(event -> {
+            System.out.println("Vai a calcola giornata");
+        });
+        
+        btnGestione.setOnAction(event -> {
+            System.out.println("Vai a gestione partecipanti");
+        });
+        
         homeButton.setOnAction(event -> {
         	centralBox.getChildren().setAll(btnRosa, btnFormazione);
-            centralBox.setPrefHeight(135);
+        	centralBox.setPrefHeight(135);
+        	if(controller.isCapo()) {
+            	centralBox.getChildren().addAll(btnCalcola, btnGestione);
+            	centralBox.setSpacing(25);
+            }
             mainLayout.getChildren().setAll(h1, centralBox, h3);
+            if(controller.isCapo()) {
+            	mainLayout.setSpacing(125);
+            }
         	root.getChildren().setAll(backgroundImageView, mainLayout);
             scene.setRoot(root);
         });
@@ -202,7 +225,9 @@ public class HomeGestione {
             
             centralBox.getChildren().setAll(comboBoxRose);
             centralBox.setPrefHeight(136);
+            centralBox.setSpacing(30);
             mainLayout.getChildren().setAll(h1, centralBox, h3);
+            mainLayout.setSpacing(200);
         	root.getChildren().setAll(backgroundImageView, mainLayout);
             scene.setRoot(root);
         });
@@ -232,11 +257,19 @@ public class HomeGestione {
         centralBox = new VBox(30, btnRosa, btnFormazione);
         centralBox.setAlignment(Pos.CENTER);
         
+        if(controller.isCapo()) {
+        	centralBox.getChildren().addAll(btnCalcola, btnGestione);
+        	centralBox.setSpacing(25);
+        }
+        
         h3 = new HBox(10, homeButton, classificaButton, risultatiButton, roseButton);
         h3.setAlignment(Pos.BOTTOM_CENTER);
         h3.setTranslateY(-30);
         
         mainLayout = new VBox(200, h1, centralBox, h3);
+        if(controller.isCapo()) {
+        	mainLayout.setSpacing(125);
+        }
         mainLayout.setAlignment(Pos.TOP_CENTER);
         mainLayout.setPrefWidth(1366);
         mainLayout.setPrefHeight(768);

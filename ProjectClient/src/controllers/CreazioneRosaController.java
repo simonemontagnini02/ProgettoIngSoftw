@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 
@@ -18,11 +21,12 @@ public class CreazioneRosaController
 		super();
 		this.partecipante = partecipante;
 		this.listaPiloti=null;
-        PrintWriter out=SocketManager.getInstance().getPrintWriter();
         try {
 			ObjectInputStream is = new ObjectInputStream(SocketManager.getInstance().getInputStream());
+			PrintWriter out=SocketManager.getInstance().getPrintWriter();
 			out.println("listaPiloti");
 			this.listaPiloti= (ListaPiloti) is.readObject();
+			System.out.println("Lista Piloti ricevuta");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
