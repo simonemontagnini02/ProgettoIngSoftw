@@ -90,8 +90,7 @@ class ClientHandler extends Thread {
     public void run() {
         try {
             // Creazione degli stream di input/output
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
             os= new ObjectOutputStream(clientSocket.getOutputStream());
             String message;
             // Leggere i messaggi dal client finché non viene inviato "exit"
@@ -100,9 +99,9 @@ class ClientHandler extends Thread {
                 if ("exit".equalsIgnoreCase(message)) {
                     break;
                 }
-                if(message.startsWith("login*")) {
+                if(message.contains("login*")) {
+                	message=message.substring(4);
                 	String[] parts = message.split("\\*");
-
                 	if (parts.length == 3 && parts[0].equals("login")) {
                 	    String username = parts[1];
                 	    String password = parts[2];
@@ -110,6 +109,7 @@ class ClientHandler extends Thread {
                 	    	if(a.getUsername().equals(username)
                 	    		&& a.getPassword().equals(password)) {
                 	    		os.writeObject(a);
+                	    		break;
                 	    	}
                 	    }
                 	} else {
@@ -121,9 +121,6 @@ class ClientHandler extends Thread {
                 	System.out.println("Richiesta lista piloti");
                 	os.writeObject(DB.getListaPiloti());
                 }
-                
-                // Risponde al client
-                out.println("Server: ho ricevuto il tuo messaggio -> " + message);
             }
 
             // Chiudere la connessione

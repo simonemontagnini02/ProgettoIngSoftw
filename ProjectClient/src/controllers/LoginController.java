@@ -18,9 +18,11 @@ public class LoginController {
 	public void login(String username, String password, Stage stage) {
         // Logica per il login
         PrintWriter out=SocketManager.getInstance().getPrintWriter();
+        ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
         try {
-			ObjectInputStream is = new ObjectInputStream(SocketManager.getInstance().getInputStream());
+        	System.out.println("login*"+username+"*"+password);
 			out.println("login*"+username+"*"+password);
+			out.flush();
 	        Account result;
 	        result= (Account) is.readObject();
 			if(result instanceof Utente) {

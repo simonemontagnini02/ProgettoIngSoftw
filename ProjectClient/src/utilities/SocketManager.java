@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -13,16 +16,16 @@ public class SocketManager {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
-    private OutputStream os;
-    private InputStream is;
+    private ObjectOutputStream os;
+    private ObjectInputStream is;
 
     private SocketManager() {
         try {
             this.socket = new Socket("localhost", 8080);
-            this.out = new PrintWriter(socket.getOutputStream(), true);
-            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.os= socket.getOutputStream();
-            this.is= socket.getInputStream();
+            this.out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            this.os= new ObjectOutputStream(socket.getOutputStream());
+            this.is= new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,11 +42,11 @@ public class SocketManager {
         return out;
     }
 
-    public OutputStream getOutputStream() {
+    public ObjectOutputStream getObjectOutputStream() {
         return os;
     }
     
-    public InputStream getInputStream() {
+    public ObjectInputStream getObjectInputStream() {
         return is;
     }
     

@@ -22,7 +22,7 @@ public class CreazioneRosaController
 		this.partecipante = partecipante;
 		this.listaPiloti=null;
         try {
-			ObjectInputStream is = new ObjectInputStream(SocketManager.getInstance().getInputStream());
+			ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
 			PrintWriter out=SocketManager.getInstance().getPrintWriter();
 			out.println("listaPiloti");
 			this.listaPiloti= (ListaPiloti) is.readObject();
