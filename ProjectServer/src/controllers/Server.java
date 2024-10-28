@@ -121,7 +121,7 @@ class ClientHandler extends Thread {
                 	System.out.println("Richiesta lista piloti");
                 	os.writeObject(DB.getListaPiloti());
                 }
-                if(message.startsWith("AggiungiPilota*")){
+                if(message.startsWith("AggiungiPilota*")){ //aggiungi
                 	String[] parts = message.split("\\*");
                 	if (parts.length == 4 && parts[0].equals("AggiungiPilota")) {
                 	    String nome = parts[1];
@@ -136,7 +136,7 @@ class ClientHandler extends Thread {
                 	    System.out.println("Formato del messaggio non valido.");
                 	}
                 }
-                if(message.startsWith("RimuoviPilota*")){
+                if(message.startsWith("RimuoviPilota*")){ //rimuovi
                 	String[] parts = message.split("\\*");
                 	if (parts.length == 4 && parts[0].equals("RimuoviPilota")) {
                 	    String nome = parts[1];
