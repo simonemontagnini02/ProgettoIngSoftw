@@ -78,4 +78,6 @@ public class GestioneLegaController {
 	public static Partecipante getPartecipante() {
 		return partecipante;
 	}
+	
+	
 }

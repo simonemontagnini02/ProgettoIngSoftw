@@ -101,7 +101,7 @@ public class Lega implements Serializable{
 
 	public void setCapo(Capo capo) {
 		this.capo = capo;
-		this.partecipanti.put(capo.getUsername(),(Partecipante) capo);
+		this.partecipanti.put(capo.getUsername(), (Partecipante) capo);
 	}
 
 	public int getNumPartecipanti() {
@@ -158,5 +158,10 @@ public class Lega implements Serializable{
 
 	public void setNumPartecipanti(int numPartecipanti) {
 		this.numPartecipanti = numPartecipanti;
+	}
+	
+	public void aggiornaPartecipante(Partecipante p)
+	{
+		this.partecipanti.put(p.username, p);
 	}
 }

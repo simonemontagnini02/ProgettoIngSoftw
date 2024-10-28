@@ -28,6 +28,18 @@ public class Database {
         }
         return instance; // Ritorna sempre la stessa istanza
     }
+    
+    //Metodo per aggiornare la lega
+    public synchronized void aggiornaLeghe(Lega newLega) {
+        for(int i=0; i<this.leghe.size(); i++)
+        {
+        	if(this.leghe.get(i).getNome().equals(newLega.getNome()))
+        	{
+        		this.leghe.set(i, newLega);
+        		break;
+        	}
+        }
+    }
 
     // Metodi synchronized per garantire sicurezza sui thread
     public synchronized List<Lega> getLeghe() {

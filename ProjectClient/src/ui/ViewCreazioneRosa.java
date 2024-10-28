@@ -27,7 +27,7 @@ public class ViewCreazioneRosa {
 	
     public void showViewCreazioneRosa(Stage stage) {
     	Button creditiDisponibili = new Button("Crediti: "+controller.getCreditiDisponibili());
-    	Button pilotiSelezionati = new Button("Piloti Rimasti: "+controller.getPilotiSelezionati());
+    	Button pilotiSelezionati = new Button("Piloti Sel.: "+controller.getPilotiSelezionati());
     	creditiDisponibili.setDisable(true);
     	pilotiSelezionati.setDisable(true);
     	
@@ -61,7 +61,7 @@ public class ViewCreazioneRosa {
                     	controller.aggiornaCreditiDisponibili(pilota.getPrezzo());
                     	controller.aggiornaPilotiSelezionati(-1);
                         creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
-                        pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiSelezionati());
+                        pilotiSelezionati.setText("Piloti Sel.: "+controller.getPilotiSelezionati());
                         updateButtonText(pilota);
                     } else {
                     	if((controller.getPilotiSelezionati() < controller.getMaxPilotiRosa()) && (controller.getCreditiDisponibili()-pilota.getPrezzo())>=0)
@@ -70,7 +70,7 @@ public class ViewCreazioneRosa {
                             controller.aggiornaCreditiDisponibili(-pilota.getPrezzo());
                             controller.aggiornaPilotiSelezionati(1);
                             creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
-                            pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiSelezionati());
+                            pilotiSelezionati.setText("Piloti Sel.: "+controller.getPilotiSelezionati());
                             updateButtonText(pilota);
                     	}
                     }

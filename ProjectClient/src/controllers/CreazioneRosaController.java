@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import javafx.stage.Stage;
@@ -16,10 +17,12 @@ public class CreazioneRosaController
 	private ListaPiloti listaPiloti;
 	private Rosa rosa;
 	private int creditiDisponibili, pilotiSelezionati, maxPilotiRosa;
+	private Lega lega;
 
-	public CreazioneRosaController(Partecipante partecipante) {
+	public CreazioneRosaController(Partecipante partecipante, Lega lega) {
 		super();
 		this.partecipante = partecipante;
+		this.lega=lega;
 		this.listaPiloti=null;
         try {
 			ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
@@ -47,6 +50,17 @@ public class CreazioneRosaController
 
 	public void creaRosa() {
 		this.partecipante.creaRosa(this.rosa);
+		this.lega.aggiornaPartecipante(partecipante);
+		
+		try {
+			ObjectOutputStream os = SocketManager.getInstance().getObjectOutputStream();
+			PrintWriter out=SocketManager.getInstance().getPrintWriter();
+			out.println("aggiornaLega");
+			os.writeObject(this.lega);
+			System.out.println("Lega aggiornata");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 	
 	public void aggiornaCreditiDisponibili(int a) {
