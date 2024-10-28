@@ -155,7 +155,7 @@ public class HomeGestione {
 
         // Gestori degli eventi per ogni pulsante
         btnRosa.setOnAction(event -> {
-        	CreazioneRosaController creazioneRosaController=new CreazioneRosaController(GestioneLegaController.getPartecipante());
+        	CreazioneRosaController creazioneRosaController=new CreazioneRosaController(GestioneLegaController.getPartecipante(), GestioneLegaController.getLega());
             ViewCreazioneRosa viewCreazioneRosa = new ViewCreazioneRosa(creazioneRosaController, controller);
         	try {
         		viewCreazioneRosa.showViewCreazioneRosa(stage);

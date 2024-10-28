@@ -151,6 +151,18 @@ class ClientHandler extends Thread {
                 	    System.out.println("Formato del messaggio non valido.");
                 	}
                 }
+                
+                if(message.equals("aggiornaLega"))
+                {
+                	ObjectInputStream is = new ObjectInputStream(clientSocket.getInputStream());
+                	System.out.println("Richiesta aggiornamento lega.");
+                	try {
+						Lega newLega = (Lega) is.readObject();
+						DB.aggiornaLeghe(newLega);
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+                }
             }
 
             // Chiudere la connessione
