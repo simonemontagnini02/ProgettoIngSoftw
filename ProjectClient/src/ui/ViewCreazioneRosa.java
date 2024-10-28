@@ -140,7 +140,7 @@ public class ViewCreazioneRosa {
         
         Button btnBack = new Button("Esci");
         btnBack.setStyle("-fx-font-size: 16px;");
-        btnBack.setPrefWidth(110);
+        btnBack.setPrefWidth(110); 
         btnBack.setPrefHeight(30);
         btnBack.setTranslateX(50);
         btnBack.setTranslateY(10);
