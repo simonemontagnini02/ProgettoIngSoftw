@@ -49,6 +49,7 @@ public class Server {
         Partecipante p1 = optional.get();
         p1.setNomeScuderia("Scuderia-Andriy");
         
+        
         ListaPiloti listaPiloti=new ListaPiloti();
         listaPiloti.aggiungiPilota(new Pilota("Charles", "Leclerc", 100));
         listaPiloti.aggiungiPilota(new Pilota("Carlos", "Sainz", 70));
