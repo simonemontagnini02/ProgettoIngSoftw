@@ -1,6 +1,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Pilota implements Serializable{
 	private String nome, cognome;
@@ -38,5 +39,22 @@ public class Pilota implements Serializable{
 	@Override
 	public String toString() {
 		return "Pilota: " + nome + " " + cognome + ", prezzo: " + prezzo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cognome, nome, prezzo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pilota other = (Pilota) obj;
+		return Objects.equals(cognome, other.cognome) && Objects.equals(nome, other.nome) && prezzo == other.prezzo;
 	}
 }
