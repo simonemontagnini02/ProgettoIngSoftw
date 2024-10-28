@@ -147,6 +147,9 @@ class ClientHandler extends Thread {
                 	    ListaPiloti lista=DB.getListaPiloti();
                 	    lista.eliminaPilota(pilota);
                 	    DB.setListaPiloti(lista);
+                	    for(Pilota plt : DB.getListaPiloti().getPiloti()) {
+                	    	System.out.println(plt);
+                	    }
                 	} else {
                 	    System.out.println("Formato del messaggio non valido.");
                 	}

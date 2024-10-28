@@ -90,6 +90,12 @@ public class HomeAmministratore{
         
         btnPilots.setOnAction(event -> {
             System.out.println("Vai a registra piloti");
+            ViewRegistraPiloti viewRegistraPiloti = new ViewRegistraPiloti(amministratoreController);
+            try {
+            	viewRegistraPiloti.showViewRegistraPiloti(stage);
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
         });
         
         VBox vbox = new VBox(30, btnPilots, btnGP, btnPoints); // Spaziatura maggiore tra i pulsanti

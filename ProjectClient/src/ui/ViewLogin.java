@@ -47,7 +47,7 @@ public class ViewLogin {
         // Campi di input per username e password con le etichette
         Label usernameLabel = new Label("Username:");
         usernameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: white;"); // Etichetta nera e in grassetto
-        usernameLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, null))); // Sfondo bianco
+        usernameLabel.setBackground(new Background(new BackgroundFill(Color.rgb(255, 128, 64), CornerRadii.EMPTY, null))); // Sfondo bianco
 
         TextField usernameField = new TextField();
         usernameField.setPrefWidth(300);
@@ -55,7 +55,7 @@ public class ViewLogin {
 
         Label passwordLabel = new Label("Password:");
         passwordLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: white;"); // Etichetta nera e in grassetto
-        passwordLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, null))); // Sfondo bianco
+        passwordLabel.setBackground(new Background(new BackgroundFill(Color.rgb(255, 128, 64), CornerRadii.EMPTY, null))); // Sfondo arancio
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPrefWidth(300);

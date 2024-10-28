@@ -37,6 +37,11 @@ public class Pilota implements Serializable{
 	}
 
 	@Override
+	public String toString() {
+		return "Pilota: " + nome + " " + cognome + ", prezzo: " + prezzo;
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(cognome, nome, prezzo);
 	}
@@ -52,5 +57,4 @@ public class Pilota implements Serializable{
 		Pilota other = (Pilota) obj;
 		return Objects.equals(cognome, other.cognome) && Objects.equals(nome, other.nome) && prezzo == other.prezzo;
 	}
-	
 }

@@ -110,7 +110,7 @@ public class ViewRegistraGP {
         backgroundImageView.fitWidthProperty().bind(root.widthProperty());
         backgroundImageView.fitHeightProperty().bind(root.heightProperty());
         
-        // Azione del pulsante per aggiungere un GP
+        // Azione dei pulsanti
         btnAddGP.setOnAction(event -> showAddGPDialog(comboBoxGP));
         btnRemoveGP.setOnAction(event -> {
         	GP selectedGP = comboBoxGP.getSelectionModel().getSelectedItem();
@@ -163,6 +163,12 @@ public class ViewRegistraGP {
 	            comboBoxGP.getItems().add(nuovoGP);
 	            //this.amministratoreController.saveGP(nuovoGP);
 	            dialog.close();
+            } else {
+            	Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            	alert2.setTitle("Errore");
+                alert2.setHeaderText("Dati mancanti");
+                alert2.setContentText("Assicurati di aver inserito sia il nome del GP che una data valida.");
+                alert2.showAndWait();
             }
 	    });
 	    
