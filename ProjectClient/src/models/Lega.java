@@ -93,6 +93,7 @@ public class Lega implements Serializable{
 		this.pilotiRosa = regola.get().getValore();
 		regola = regolamento.getRegola("PILOTI FORMAZIONE");
 		this.pilotiForm = regola.get().getValore();
+		getCapo().setCrediti(maxCrediti);
 	}
 	
 	public Capo getCapo() {
@@ -158,10 +159,5 @@ public class Lega implements Serializable{
 
 	public void setNumPartecipanti(int numPartecipanti) {
 		this.numPartecipanti = numPartecipanti;
-	}
-	
-	public void aggiornaPartecipante(Partecipante p)
-	{
-		this.partecipanti.put(p.username, p);
 	}
 }

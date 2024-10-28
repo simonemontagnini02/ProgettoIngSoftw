@@ -16,7 +16,7 @@ public class CreazioneRosaController
 	private Partecipante partecipante;
 	private ListaPiloti listaPiloti;
 	private Rosa rosa;
-	private int creditiDisponibili, pilotiSelezionati, maxPilotiRosa;
+	private int creditiDisponibili, pilotiRimasti, maxPilotiRosa;
 	private Lega lega;
 
 	public CreazioneRosaController(Partecipante partecipante, Lega lega) {
@@ -36,7 +36,7 @@ public class CreazioneRosaController
         
 		this.rosa=partecipante.getRosa();
 		this.creditiDisponibili=this.partecipante.getCrediti();
-		this.pilotiSelezionati=rosa.getPiloti().size();
+		this.pilotiRimasti=rosa.getMaxPiloti() - rosa.getPiloti().size();
 		this.maxPilotiRosa=this.partecipante.getLega().getPilotiRosa();
 	}
 	
@@ -49,28 +49,32 @@ public class CreazioneRosaController
 	}
 
 	public void creaRosa() {
+		this.pilotiRimasti=this.rosa.getMaxPiloti()-this.rosa.getPiloti().size();
 		this.partecipante.creaRosa(this.rosa);
-		this.lega.aggiornaPartecipante(partecipante);
-		
+		System.out.println("Nuova Rosa:"+ this.lega.getPartecipante(this.partecipante.getUsername()).getRosa().getPiloti());
+		/*
 		try {
 			ObjectOutputStream os = SocketManager.getInstance().getObjectOutputStream();
 			PrintWriter out=SocketManager.getInstance().getPrintWriter();
 			out.println("aggiornaLega");
+			out.flush();
 			os.writeObject(this.lega);
+			os.flush();
 			System.out.println("Lega aggiornata");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
     }
 	
 	public void aggiornaCreditiDisponibili(int a) {
 		this.creditiDisponibili+=a;
 	}
 	
-	public void aggiornaPilotiSelezionati(int a) {
-		this.pilotiSelezionati+=a;
+	public void aggiornaPilotiRimasti(int a) {
+		this.pilotiRimasti+=a;
 	}
-	
+
 	public ListaPiloti getListaPiloti() {
 		return listaPiloti;
 	}
@@ -83,8 +87,8 @@ public class CreazioneRosaController
 		return partecipante;
 	}
 
-	public int getPilotiSelezionati() {
-		return this.pilotiSelezionati;
+	public int getPilotiRimasti() {
+		return this.pilotiRimasti;
 	}
 	
 	public int getMaxPilotiRosa() {

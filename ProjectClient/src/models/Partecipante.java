@@ -30,11 +30,12 @@ public class Partecipante implements Serializable{
 	}
 	
 	public void creaRosa(Rosa rosa) {
-		this.rosa = rosa;
-		
+		this.crediti=this.lega.getMaxCrediti();
 		for(Pilota pilota : rosa.getPiloti()) {
 			this.crediti-=pilota.getPrezzo();
 		}
+		
+		this.rosa = rosa;
 	}
 
 	public void schieraFormazione(Formazione formazione) {
@@ -89,6 +90,10 @@ public class Partecipante implements Serializable{
 
 	public void setFormazione(Formazione formazione) {
 		this.formazione = formazione;
+	}
+	
+	public void setRosa(Rosa rosa) {
+		this.rosa = rosa;
 	}
 
 	public int getCrediti() {

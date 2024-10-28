@@ -27,7 +27,7 @@ public class ViewCreazioneRosa {
 	
     public void showViewCreazioneRosa(Stage stage) {
     	Button creditiDisponibili = new Button("Crediti: "+controller.getCreditiDisponibili());
-    	Button pilotiSelezionati = new Button("Piloti Sel.: "+controller.getPilotiSelezionati());
+    	Button pilotiSelezionati = new Button("Piloti Rimasti: "+controller.getPilotiRimasti());
     	creditiDisponibili.setDisable(true);
     	pilotiSelezionati.setDisable(true);
     	
@@ -59,18 +59,18 @@ public class ViewCreazioneRosa {
                     	controller.eliminaPilota(pilota);
                     	System.out.println("Compra");
                     	controller.aggiornaCreditiDisponibili(pilota.getPrezzo());
-                    	controller.aggiornaPilotiSelezionati(-1);
+                    	controller.aggiornaPilotiRimasti(1);
                         creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
-                        pilotiSelezionati.setText("Piloti Sel.: "+controller.getPilotiSelezionati());
+                        pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiRimasti());
                         updateButtonText(pilota);
                     } else {
-                    	if((controller.getPilotiSelezionati() < controller.getMaxPilotiRosa()) && (controller.getCreditiDisponibili()-pilota.getPrezzo())>=0)
+                    	if((controller.getPilotiRimasti() > 0 ) && (controller.getCreditiDisponibili()-pilota.getPrezzo())>=0)
                     	{
                     		controller.aggiungiPilota(pilota);
                             controller.aggiornaCreditiDisponibili(-pilota.getPrezzo());
-                            controller.aggiornaPilotiSelezionati(1);
+                            controller.aggiornaPilotiRimasti(-1);
                             creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());
-                            pilotiSelezionati.setText("Piloti Sel.: "+controller.getPilotiSelezionati());
+                            pilotiSelezionati.setText("Piloti Rimasti: "+controller.getPilotiRimasti());
                             updateButtonText(pilota);
                     	}
                     }

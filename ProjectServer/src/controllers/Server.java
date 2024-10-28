@@ -81,6 +81,7 @@ class ClientHandler extends Thread {
     private BufferedReader in;
     private Database DB;
     private ObjectOutputStream os;
+    private ObjectInputStream is;
 
     public ClientHandler(Socket socket, Database DB) {
         this.clientSocket = socket;
@@ -158,7 +159,7 @@ class ClientHandler extends Thread {
                 
                 if(message.equals("aggiornaLega"))
                 {
-                	ObjectInputStream is = new ObjectInputStream(clientSocket.getInputStream());
+                	is = new ObjectInputStream(clientSocket.getInputStream());
                 	System.out.println("Richiesta aggiornamento lega.");
                 	try {
 						Lega newLega = (Lega) is.readObject();

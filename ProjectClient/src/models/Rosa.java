@@ -36,4 +36,12 @@ public class Rosa implements Serializable{
 	public void setPiloti(ArrayList<Pilota> piloti) {
 		this.piloti = piloti;
 	}
+
+	public int getMaxPiloti() {
+		return maxPiloti;
+	}
+
+	public void setMaxPiloti(int maxPiloti) {
+		this.maxPiloti = maxPiloti;
+	}
 }
