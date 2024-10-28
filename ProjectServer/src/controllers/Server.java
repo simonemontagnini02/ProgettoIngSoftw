@@ -121,6 +121,36 @@ class ClientHandler extends Thread {
                 	System.out.println("Richiesta lista piloti");
                 	os.writeObject(DB.getListaPiloti());
                 }
+                if(message.equals("AggiungiPilota")){
+                	String[] parts = message.split("\\*");
+                	if (parts.length == 3) {
+                	    String nome = parts[0];
+                	    String cognome = parts[1];
+                	    String p = parts [2];
+                	    int prezzo = Integer.parseInt(p);
+                	    Pilota pilota=new Pilota(nome, cognome, prezzo);
+                	    ListaPiloti lista=DB.getListaPiloti();
+                	    lista.aggiungiPilota(pilota);
+                	    DB.setListaPiloti(lista);
+                	} else {
+                	    System.out.println("Formato del messaggio login non valido.");
+                	}
+                }
+                if(message.equals("RimuoviPilota")){
+                	String[] parts = message.split("\\*");
+                	if (parts.length == 3) {
+                	    String nome = parts[0];
+                	    String cognome = parts[1];
+                	    String p = parts [2];
+                	    int prezzo = Integer.parseInt(p);
+                	    Pilota pilota=new Pilota(nome, cognome, prezzo);
+                	    ListaPiloti lista=DB.getListaPiloti();
+                	    lista.eliminaPilota(pilota);
+                	    DB.setListaPiloti(lista);
+                	} else {
+                	    System.out.println("Formato del messaggio login non valido.");
+                	}
+                }
             }
 
             // Chiudere la connessione
