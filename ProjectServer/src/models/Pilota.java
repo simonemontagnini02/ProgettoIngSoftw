@@ -34,4 +34,9 @@ public class Pilota implements Serializable{
 	public void setPrezzo(int prezzo) {
 		this.prezzo = prezzo;
 	}
+
+	@Override
+	public String toString() {
+		return "Pilota: " + nome + " " + cognome + ", prezzo: " + prezzo;
+	}
 }
