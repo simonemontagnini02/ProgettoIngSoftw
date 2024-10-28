@@ -32,7 +32,7 @@ public class ViewRegistraPiloti {
 		this.amministratoreController = amministratoreController;
 	}
 	
-	public void showViewRegistraPiloti (Stage stage) {
+	public void showViewRegistraPiloti (Stage stage) { 
 		
 		// Carica il logo
         Image logoImage = new Image(getClass().getResourceAsStream("/img/logo.png"));
