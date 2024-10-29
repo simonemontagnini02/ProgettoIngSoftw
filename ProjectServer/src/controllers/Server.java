@@ -32,7 +32,7 @@ public class Server {
         Regolamento regolamento = new Regolamento();  
         Regola [] r = new Regola [7];  
         r[0] = new Regola ("MAX PARTECIPANTI", 4, "Numero massimo partecipanti");  
-        r[1] = new Regola ("MAX CREDITI", 500, "Numero massimo crediti per partecipante");  
+        r[1] = new Regola ("MAX CREDITI", 300, "Numero massimo crediti per partecipante");  
         r[2] = new Regola ("PILOTI ROSA", 5, "Numero massimo piloti rosa");  
         r[3] = new Regola ("PILOTI FORMAZIONE", 3, "Numero massimo piloti formazione");
         r[4] = new Regola ("Giro Veloce", 1, "Il pilota che ha completato il giro veloce guadagna un punto aggiuntivo");  
@@ -51,8 +51,15 @@ public class Server {
         
         
         ListaPiloti listaPiloti=new ListaPiloti();
-        listaPiloti.aggiungiPilota(new Pilota("Charles", "Leclerc", 100));
-        listaPiloti.aggiungiPilota(new Pilota("Carlos", "Sainz", 70));
+        listaPiloti.aggiungiPilota(new Pilota("Charles", "Leclerc", 70));
+        listaPiloti.aggiungiPilota(new Pilota("Carlos", "Sainz", 60));
+        listaPiloti.aggiungiPilota(new Pilota("Max", "Verstappen", 90));
+        listaPiloti.aggiungiPilota(new Pilota("Yuki", "Tsunoda", 20));
+        listaPiloti.aggiungiPilota(new Pilota("Lando", "Norris", 90));
+        listaPiloti.aggiungiPilota(new Pilota("Valtteri", "Bottas", 10));
+        listaPiloti.aggiungiPilota(new Pilota("Oscar", "Piastri", 60));
+        listaPiloti.aggiungiPilota(new Pilota("Pierre", "Gasly", 20));
+        listaPiloti.aggiungiPilota(new Pilota("George", "Russell", 50));
         DB.setListaPiloti(listaPiloti);
         
         
