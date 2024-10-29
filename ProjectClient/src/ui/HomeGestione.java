@@ -155,6 +155,7 @@ public class HomeGestione {
 
         // Gestori degli eventi per ogni pulsante
         btnRosa.setOnAction(event -> {
+        	controller.refresh();
         	CreazioneRosaController creazioneRosaController=new CreazioneRosaController(GestioneLegaController.getPartecipante(), GestioneLegaController.getLega());
             ViewCreazioneRosa viewCreazioneRosa = new ViewCreazioneRosa(creazioneRosaController, controller);
         	try {
@@ -208,7 +209,12 @@ public class HomeGestione {
             comboBoxRose.setPrefHeight(40);
             controller.refresh();
             
-            Button refreshBtn=new Button("Aggiorna");
+            Image refreshImage = new Image("/img/refresh.png");
+            ImageView refreshView = new ImageView(refreshImage);
+            refreshView.setFitWidth(35); 
+            refreshView.setFitHeight(35);
+            Button refreshBtn=new Button();
+            refreshBtn.setGraphic(refreshView);
             refreshBtn.setPrefWidth(35);
             refreshBtn.setPrefHeight(35);
             refreshBtn.setOnAction(event2 -> {
@@ -231,7 +237,7 @@ public class HomeGestione {
                 }
             });
             
-            centralBox.getChildren().setAll(refreshBtn, comboBoxRose);
+            centralBox.getChildren().setAll(comboBoxRose);
             centralBox.setPrefHeight(136);
             centralBox.setSpacing(30);
             mainLayout.getChildren().setAll(h1, centralBox, h3);

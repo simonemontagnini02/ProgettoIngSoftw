@@ -94,6 +94,12 @@ public class GestioneLegaController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Map<String, Partecipante> partecipanti=lega.getPartecipanti();
+		for(String username : partecipanti.keySet()) {
+			if(username.equals(utente.getUsername())) {
+				this.partecipante=partecipanti.get(username);
+			}
+		}
 	}
 	
 }
