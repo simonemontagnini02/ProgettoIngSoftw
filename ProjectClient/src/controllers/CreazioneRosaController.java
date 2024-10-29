@@ -74,6 +74,15 @@ public class CreazioneRosaController
 	}
 
 	public ListaPiloti getListaPiloti() {
+		try {
+			ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
+			PrintWriter out=SocketManager.getInstance().getPrintWriter();
+			out.println("listaPiloti");
+			this.listaPiloti= (ListaPiloti) is.readObject();
+			System.out.println("Lista Piloti ricevuta");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return listaPiloti;
 	}
 	
