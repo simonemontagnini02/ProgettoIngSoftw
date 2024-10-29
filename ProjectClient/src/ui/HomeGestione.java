@@ -209,19 +209,8 @@ public class HomeGestione {
             comboBoxRose.setPrefHeight(40);
             controller.refresh();
             
-            Image refreshImage = new Image("/img/refresh.png");
-            ImageView refreshView = new ImageView(refreshImage);
-            refreshView.setFitWidth(35); 
-            refreshView.setFitHeight(35);
-            Button refreshBtn=new Button();
-            refreshBtn.setGraphic(refreshView);
-            refreshBtn.setPrefWidth(35);
-            refreshBtn.setPrefHeight(35);
-            refreshBtn.setOnAction(event2 -> {
-                controller.refresh();
-            });
-            
             comboBoxRose.valueProperty().addListener((observable, oldValue, newValue) -> {
+            	controller.refresh();
                 if (newValue != null) {
                     System.out.println("Rosa selezionata: " + newValue);
                     
