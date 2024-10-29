@@ -206,6 +206,14 @@ public class HomeGestione {
             comboBoxRose.setPromptText("Seleziona una rosa");
             comboBoxRose.setPrefWidth(300);
             comboBoxRose.setPrefHeight(40);
+            controller.refresh();
+            
+            Button refreshBtn=new Button("Aggiorna");
+            refreshBtn.setPrefWidth(35);
+            refreshBtn.setPrefHeight(35);
+            refreshBtn.setOnAction(event2 -> {
+                controller.refresh();
+            });
             
             comboBoxRose.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -223,7 +231,7 @@ public class HomeGestione {
                 }
             });
             
-            centralBox.getChildren().setAll(comboBoxRose);
+            centralBox.getChildren().setAll(refreshBtn, comboBoxRose);
             centralBox.setPrefHeight(136);
             centralBox.setSpacing(30);
             mainLayout.getChildren().setAll(h1, centralBox, h3);
