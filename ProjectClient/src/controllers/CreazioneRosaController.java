@@ -52,7 +52,6 @@ public class CreazioneRosaController
 		this.pilotiRimasti=this.rosa.getMaxPiloti()-this.rosa.getPiloti().size();
 		this.partecipante.creaRosa(this.rosa);
 		System.out.println("Nuova Rosa:"+ this.lega.getPartecipante(this.partecipante.getUsername()).getRosa().getPiloti());
-		/*
 		try {
 			ObjectOutputStream os = SocketManager.getInstance().getObjectOutputStream();
 			PrintWriter out=SocketManager.getInstance().getPrintWriter();
@@ -64,7 +63,6 @@ public class CreazioneRosaController
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		*/
     }
 	
 	public void aggiornaCreditiDisponibili(int a) {

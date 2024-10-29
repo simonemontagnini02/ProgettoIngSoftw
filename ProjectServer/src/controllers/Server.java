@@ -92,8 +92,9 @@ class ClientHandler extends Thread {
     public void run() {
         try {
             // Creazione degli stream di input/output
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
             os= new ObjectOutputStream(clientSocket.getOutputStream());
+            is = new ObjectInputStream(clientSocket.getInputStream());
             String message;
             // Leggere i messaggi dal client finché non viene inviato "exit"
             while ((message = in.readLine()) != null) {
@@ -101,8 +102,7 @@ class ClientHandler extends Thread {
                 if ("exit".equalsIgnoreCase(message)) {
                     break;
                 }
-                if(message.contains("login*")) {
-                	message=message.substring(4);
+                if(message.startsWith("login*")) {
                 	String[] parts = message.split("\\*");
                 	if (parts.length == 3 && parts[0].equals("login")) {
                 	    String username = parts[1];
@@ -159,14 +159,25 @@ class ClientHandler extends Thread {
                 
                 if(message.equals("aggiornaLega"))
                 {
-                	is = new ObjectInputStream(clientSocket.getInputStream());
-                	System.out.println("Richiesta aggiornamento lega.");
                 	try {
 						Lega newLega = (Lega) is.readObject();
 						DB.aggiornaLeghe(newLega);
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}
+                }
+                if(message.startsWith("richiestaLega*")) {
+                	String[] parts = message.split("\\*");
+	            	if (parts.length == 2 && parts[0].equals("richiestaLega")) {
+	            	    String nome = parts[1];
+	                	List<Lega> l=DB.getLeghe();
+	                	for(Lega lega : l) {
+	                		if(lega.getNome().equals(nome)) {
+	                			os.writeObject(lega);
+	                			break;
+	                		}
+	                	}
+	                }
                 }
             }
 

@@ -1,10 +1,14 @@
 package controllers;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.stage.Stage;
 import models.*;
+import utilities.SocketManager;
 
 public class GestioneLegaController {
 	private static Utente utente;
@@ -78,6 +82,18 @@ public class GestioneLegaController {
 	public static Partecipante getPartecipante() {
 		return partecipante;
 	}
-	
+	public void refresh() {
+		PrintWriter out=SocketManager.getInstance().getPrintWriter();
+        ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
+        out.println("richiestaLega*"+ lega.getNome());
+        Lega newLega;
+		try {
+			newLega = (Lega)is.readObject();
+			this.lega=newLega;
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
