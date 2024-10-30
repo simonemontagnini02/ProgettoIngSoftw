@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Rosa implements Serializable{
 	private int maxPiloti;
 	private ArrayList<Pilota> piloti;
+	private int prezzo;
 
 	public Rosa(int maxPiloti) {
 		super();
@@ -18,11 +19,13 @@ public class Rosa implements Serializable{
 			return false;
 		}
 		this.piloti.add(pilota);
+		prezzo+=pilota.getPrezzo();
 		return true;
 	}
 	
 	public void eliminaPilota(Pilota pilota) {
 		this.piloti.remove(pilota);
+		prezzo-=pilota.getPrezzo();
 	}
 	
 	public boolean containsPilota(Pilota pilota) {
@@ -44,4 +47,9 @@ public class Rosa implements Serializable{
 	public void setMaxPiloti(int maxPiloti) {
 		this.maxPiloti = maxPiloti;
 	}
+
+	public int getPrezzo() {
+		return prezzo;
+	}
+	
 }

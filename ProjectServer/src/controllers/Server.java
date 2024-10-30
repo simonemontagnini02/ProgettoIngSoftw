@@ -168,14 +168,38 @@ class ClientHandler extends Thread {
                 	}
                 }
                 
-                if(message.equals("aggiornaLega"))
+                if(message.startsWith("aggiornaLega*"))
                 {
-                	try {
-						Lega newLega = (Lega) is.readObject();
-						DB.aggiornaLeghe(newLega);
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					}
+                	String[] parts = message.split("\\*");
+	            	if (parts.length == 4 && parts[0].equals("aggiornaLega")) {
+	            		String nomeLega= parts[1];
+	            		String partecipante= parts[2];
+	            		int dim=Integer.parseInt(parts[3]);
+						List<Lega> l=DB.getLeghe();
+	                	for(Lega lega : l) {
+	                		if(lega.getNome().equals(nomeLega)) {
+	                			Optional<Regola> r=lega.getRegolamento().getRegola("PILOTI ROSA");
+	                			if(r.isPresent()) {
+	                				Rosa rosa=new Rosa(r.get().getValore());
+	                				for(int i=0;i<dim;i++) {
+	    	                			String pilota=in.readLine();
+	    	                			String[] nc = pilota.split("\\*");
+	    	                			String nome=nc[0];
+	    	                			String cognome=nc[1];
+	    	                			for(Pilota p:DB.getListaPiloti().getPiloti()) {
+	    	                				if(p.getNome().equals(nome) && p.getCognome().equals(cognome)) {
+	    	                					rosa.aggiungiPilota(p);
+	    	                					break;
+	    	                				}
+	    	                			}
+	    	                		}
+	                				lega.getPartecipante(partecipante).setRosa(rosa);
+	                				lega.getPartecipante(partecipante).setCrediti(lega.getMaxCrediti()-rosa.getPrezzo());
+		                			DB.aggiornaLeghe(lega);
+	                			}
+	                		}
+	                	}
+	            	}
                 }
                 if(message.startsWith("richiestaLega*")) {
                 	String[] parts = message.split("\\*");
@@ -184,6 +208,7 @@ class ClientHandler extends Thread {
 	                	List<Lega> l=DB.getLeghe();
 	                	for(Lega lega : l) {
 	                		if(lega.getNome().equals(nome)) {
+	                			os.reset();
 	                			os.writeObject(lega);
 	                			os.flush();
 	                			break;

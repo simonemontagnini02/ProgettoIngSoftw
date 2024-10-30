@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 import javafx.stage.Stage;
 import models.*;
@@ -56,11 +57,12 @@ public class CreazioneRosaController
 		this.partecipante.creaRosa(this.rosa);
 		System.out.println("Nuova Rosa:"+ this.lega.getPartecipante(this.partecipante.getUsername()).getRosa().getPiloti());
 		try {
-			ObjectOutputStream os = SocketManager.getInstance().getObjectOutputStream();
 			PrintWriter out=SocketManager.getInstance().getPrintWriter();
-			out.println("aggiornaLega");
+			out.println("aggiornaLega*"+lega.getNome()+"*"+partecipante.getUsername()+"*"+rosa.getPiloti().size());
 			out.flush();
-			os.writeObject(this.lega);
+			for(Pilota p: rosa.getPiloti()) {
+				out.println(p.getNome()+"*"+p.getCognome());
+			}
 			System.out.println("Lega aggiornata");
 		} catch (Exception e) {
 			e.printStackTrace();
