@@ -28,11 +28,14 @@ public class CreazioneRosaController
 			ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
 			PrintWriter out=SocketManager.getInstance().getPrintWriter();
 			out.println("listaPiloti");
+			out.flush();
 			this.listaPiloti= (ListaPiloti) is.readObject();
 			System.out.println("Lista Piloti ricevuta");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        
+        System.out.println(this.listaPiloti.getPiloti());
         
 		this.rosa=partecipante.getRosa();
 		this.creditiDisponibili=this.partecipante.getCrediti();
@@ -58,7 +61,6 @@ public class CreazioneRosaController
 			out.println("aggiornaLega");
 			out.flush();
 			os.writeObject(this.lega);
-			os.flush();
 			System.out.println("Lega aggiornata");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,15 +76,6 @@ public class CreazioneRosaController
 	}
 
 	public ListaPiloti getListaPiloti() {
-		try {
-			ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
-			PrintWriter out=SocketManager.getInstance().getPrintWriter();
-			out.println("listaPiloti");
-			this.listaPiloti= (ListaPiloti) is.readObject();
-			System.out.println("Lista Piloti ricevuta");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return listaPiloti;
 	}
 	

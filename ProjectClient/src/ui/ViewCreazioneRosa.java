@@ -57,7 +57,6 @@ public class ViewCreazioneRosa {
                     if (controller.getRosa().containsPilota(pilota))
                     {
                     	controller.eliminaPilota(pilota);
-                    	System.out.println("Compra");
                     	controller.aggiornaCreditiDisponibili(pilota.getPrezzo());
                     	controller.aggiornaPilotiRimasti(1);
                         creditiDisponibili.setText("Crediti: "+controller.getCreditiDisponibili());

@@ -86,6 +86,7 @@ public class GestioneLegaController {
 		PrintWriter out=SocketManager.getInstance().getPrintWriter();
         ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
         out.println("richiestaLega*"+ lega.getNome());
+        out.flush();
         Lega newLega;
 		try {
 			newLega = (Lega)is.readObject();

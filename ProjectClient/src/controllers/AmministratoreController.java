@@ -31,6 +31,7 @@ public class AmministratoreController {
             
             //Scrittura operazione e lettura GP
             out.println("listaGP");
+            out.flush();
             String line;
             int numeroGP = Integer.parseInt(in.readLine());
             for(int i=0; i< numeroGP; i++) {
@@ -55,6 +56,7 @@ public class AmministratoreController {
 			ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
 			PrintWriter out=SocketManager.getInstance().getPrintWriter();
 			out.println("listaPiloti");
+			out.flush();
 			this.listaPiloti= (ListaPiloti) is.readObject();
 			System.out.println("Lista Piloti ricevuta");
             for(Pilota plt : this.listaPiloti.getPiloti()) {
@@ -77,7 +79,9 @@ public class AmministratoreController {
             
             //Scrittura e lettura esito
             out.println("AggiungiGP");
+            out.flush();
             out.println(gp.getNome() + ";" + gp.getData().toString());
+            out.flush();
 			String response = in.readLine();
 			if(response.equals("SUCCESSO"))
 				return true;
@@ -99,7 +103,9 @@ public class AmministratoreController {
             BufferedReader in = socketManager.getBufferedReader();
             
             out.println("RimuoviGP");
+            out.flush();
             out.println(gp.getNome() + ";" + gp.getData().toString());
+            out.flush();
             /*String response = in.readLine();
             if(response.equals("SUCCESSO")) {
             	return true;

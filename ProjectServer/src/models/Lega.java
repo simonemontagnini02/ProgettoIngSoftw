@@ -95,6 +95,7 @@ public class Lega implements Serializable{
 		this.pilotiForm = regola.get().getValore();
 		getCapo().setCrediti(maxCrediti);
 		getCapo().setRosa(new Rosa(pilotiRosa));
+		getCapo().setFormazione(new Formazione(pilotiForm));
 	}
 	
 	public Capo getCapo() {

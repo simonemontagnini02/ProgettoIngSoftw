@@ -118,6 +118,7 @@ class ClientHandler extends Thread {
                 	    	if(a.getUsername().equals(username)
                 	    		&& a.getPassword().equals(password)) {
                 	    		os.writeObject(a);
+                	    		os.flush();
                 	    		break;
                 	    	}
                 	    }
@@ -128,7 +129,10 @@ class ClientHandler extends Thread {
                 
                 if(message.equals("listaPiloti")) {
                 	System.out.println("Richiesta lista piloti");
+                	os.reset();
                 	os.writeObject(DB.getListaPiloti());
+                	System.out.println(DB.getListaPiloti().getPiloti());
+                	os.flush();
                 }
                 if(message.startsWith("AggiungiPilota*")){ //aggiungi
                 	String[] parts = message.split("\\*");
@@ -181,6 +185,7 @@ class ClientHandler extends Thread {
 	                	for(Lega lega : l) {
 	                		if(lega.getNome().equals(nome)) {
 	                			os.writeObject(lega);
+	                			os.flush();
 	                			break;
 	                		}
 	                	}
