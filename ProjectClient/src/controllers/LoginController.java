@@ -15,7 +15,7 @@ import utilities.SocketManager;
 
 public class LoginController {
 
-	public void login(String username, String password, Stage stage) {
+	public boolean login(String username, String password, Stage stage) {
         // Logica per il login
         PrintWriter out=SocketManager.getInstance().getPrintWriter();
         ObjectInputStream is = SocketManager.getInstance().getObjectInputStream();
@@ -25,20 +25,26 @@ public class LoginController {
 			out.flush();
 	        Account result;
 	        result= (Account) is.readObject();
-			if(result instanceof Utente) {
+	        if(result.getUsername().equals("********") && result.getPassword().equals("********")) {
+	        	return false;
+	        }
+	        else if(result instanceof Utente) {
 	        	HomeUtente home=new HomeUtente((Utente)result);
 	        	home.showHomeUtente(stage);
+	        	return true;
 	        }
 	        else if(result instanceof Amministratore) {
 	        	HomeAmministratore home=new HomeAmministratore(new AmministratoreController((Amministratore)result));
 	        	home.showHomeAmministratore(stage);
+	        	return true;
 	        }
 	        else {
-	        	
+	        	return true;
 	        }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        return false;
     }
 }

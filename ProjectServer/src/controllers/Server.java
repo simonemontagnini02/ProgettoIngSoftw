@@ -110,6 +110,7 @@ class ClientHandler extends Thread {
                     break;
                 }
                 if(message.startsWith("login*")) {
+                	boolean trovato= false;
                 	String[] parts = message.split("\\*");
                 	if (parts.length == 3 && parts[0].equals("login")) {
                 	    String username = parts[1];
@@ -117,10 +118,19 @@ class ClientHandler extends Thread {
                 	    for(Account a: DB.getAccount()) {
                 	    	if(a.getUsername().equals(username)
                 	    		&& a.getPassword().equals(password)) {
+                	    		os.reset();
                 	    		os.writeObject(a);
                 	    		os.flush();
+                	    		trovato=true;
                 	    		break;
                 	    	}
+                	    }
+                	    if(!trovato) {
+                	    	Account a= new Account("********");
+                	    	a.setPassword("********");
+                	    	os.reset();
+                	    	os.writeObject(a);
+                	    	os.flush();
                 	    }
                 	} else {
                 	    System.out.println("Formato del messaggio login non valido.");
